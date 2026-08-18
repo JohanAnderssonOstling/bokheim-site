@@ -42,7 +42,14 @@
 
   a { color: var(--ink); }
 
+  /* The page fills the viewport, with the hero absorbing whatever height is
+     left over so the feature row sits against the bottom edge. dvh keeps that
+     honest on mobile, where browser chrome shrinks the visible area. */
   .page {
+    display: flex;
+    min-height: 100vh;
+    min-height: 100dvh;
+    flex-direction: column;
     width: min(100% - 2rem, 75rem);
     margin: 0 auto;
     border-right: 1px solid var(--sage);
@@ -51,7 +58,7 @@
 
   .hero {
     display: flex;
-    min-height: 68vh;
+    flex: 1;
     align-items: center;
     justify-content: center;
     padding: 5rem 1.5rem;
@@ -94,8 +101,16 @@
     margin-top: 2rem;
   }
 
+  /* Split control: the primary download, plus a caret hinged to its right
+     edge that reveals the builds for the other platform. */
+  .download-split {
+    display: flex;
+    position: relative;
+  }
+
   #primary-download,
-  .download-menu summary {
+  .download-menu summary,
+  .webapp-link {
     display: inline-flex;
     min-height: 3rem;
     align-items: center;
@@ -107,30 +122,44 @@
     font-size: 0.95rem;
     font-weight: 600;
     line-height: 1;
-  }
-
-  #primary-download {
-    background: var(--ink);
-    color: var(--cream);
     text-decoration: none;
   }
 
-  #primary-download:hover { background: var(--text); }
+  #primary-download {
+    border-right: 0;
+    border-radius: 0.35rem 0 0 0.35rem;
+    background: var(--ink);
+    color: var(--cream);
+  }
 
   #primary-download svg {
     width: 1.1rem;
     height: 1.1rem;
   }
 
-  .download-menu { position: relative; }
+  /* Lets the caret stretch to match the primary button's height. */
+  .download-menu { display: flex; }
 
   .download-menu summary {
-    background: var(--cream);
-    color: var(--ink);
+    padding-inline: 0.75rem;
+    border-left: 1px solid rgb(249 245 238 / 35%);
+    border-radius: 0 0.35rem 0.35rem 0;
+    background: var(--ink);
+    color: var(--cream);
     cursor: pointer;
     list-style: none;
     user-select: none;
   }
+
+  #primary-download:hover,
+  .download-menu summary:hover { background: var(--text); }
+
+  .webapp-link {
+    background: var(--cream);
+    color: var(--ink);
+  }
+
+  .webapp-link:hover { background: var(--greige); }
 
   .download-menu summary::-webkit-details-marker { display: none; }
 
@@ -147,11 +176,13 @@
     transform: translateY(0.1rem) rotate(225deg);
   }
 
+  /* Anchored to the whole split control, not just the caret. */
   .download-menu-list {
     position: absolute;
     z-index: 2;
     top: calc(100% + 0.4rem);
     right: 0;
+    left: auto;
     width: max-content;
     min-width: 12rem;
     margin: 0;
@@ -201,32 +232,6 @@
     font-size: 0.95rem;
   }
 
-  .sync {
-    padding: 3rem 1.5rem;
-    border-top: 1px solid var(--sage);
-  }
-
-  .sync-inner {
-    width: min(100%, 44rem);
-    margin: 0 auto;
-  }
-
-  .sync h2 {
-    margin: 0;
-    color: var(--ink);
-    font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.1rem);
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-  }
-
-  .sync-copy {
-    margin: 1rem 0 0;
-    font-size: clamp(1rem, 1.8vw, 1.1rem);
-  }
-
   :focus-visible {
     outline: 3px solid var(--ink);
     outline-offset: 3px;
@@ -240,25 +245,16 @@
   @media (max-width: 42rem) {
     .page { width: calc(100% - 1rem); }
 
-    .hero {
-      min-height: 62vh;
-      padding: 4rem 1rem;
-    }
+    .hero { padding: 4rem 1rem; }
 
     .download-actions {
       align-items: stretch;
       flex-direction: column;
     }
 
-    #primary-download,
-    .download-menu summary { width: 100%; }
+    .download-split, .webapp-link { width: 100%; }
 
-    .download-menu-list {
-      position: static;
-      width: 100%;
-      margin-top: 0.4rem;
-      box-shadow: none;
-    }
+    #primary-download { flex: 1; }
 
     .features { grid-template-columns: 1fr; }
 
@@ -280,20 +276,24 @@
       <p class="summary">An ebook reader that keeps your library available and synchronized across every device.</p>
 
       <div class="download-actions">
-        <a id="primary-download" href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/>
-          </svg>
-          <span id="download-label">Download Bokheim</span>
-        </a>
+        <div class="download-split">
+          <a id="primary-download" href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/>
+            </svg>
+            <span id="download-label">Download Bokheim</span>
+          </a>
 
-        <details class="download-menu">
-          <summary>Other downloads</summary>
-          <ul class="download-menu-list">
-            <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-x86_64.AppImage">Linux</a></li>
-            <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/bokheim-arm64.apk">Android</a></li>
-          </ul>
-        </details>
+          <details class="download-menu">
+            <summary aria-label="Downloads for other platforms"></summary>
+            <ul class="download-menu-list">
+              <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-x86_64.AppImage">Linux</a></li>
+              <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/bokheim-arm64.apk">Android</a></li>
+            </ul>
+          </details>
+        </div>
+
+        <a class="webapp-link" href="https://app.bokheim.se">Open in browser</a>
       </div>
     </div>
   </header>
@@ -311,13 +311,6 @@
       <h2>Made for reading</h2>
       <p>A focused reader that keeps your books on your devices and within reach.</p>
     </article>
-  </section>
-
-  <section class="sync" aria-labelledby="sync-heading">
-    <div class="sync-inner">
-      <h2 id="sync-heading">Synchronization</h2>
-      <p class="sync-copy">Every device keeps your whole library, so you can read anywhere, online or not. When your devices meet again they catch each other up, and reading on two of them never costs you either side's progress.</p>
-    </div>
   </section>
 </main>
 
