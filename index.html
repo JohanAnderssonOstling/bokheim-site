@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bokheim — Offline Reader for Books and Audiobooks</title>
-<meta name="description" content="Bokheim is an offline-first library for ebooks, PDFs and audiobooks that keeps your collection and your progress synchronized across desktop and mobile devices.">
+<meta name="description" content="Bokheim is an offline-first library for ebooks, PDFs and audiobooks that keeps your collection and your progress synchronised across desktop and mobile devices.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://bokheim.se/">
 
@@ -26,12 +26,13 @@
     "price": "0",
     "priceCurrency": "SEK"
   },
-  "description": "An offline-first library for ebooks, PDFs and audiobooks that synchronizes your collection and your progress across devices.",
+  "description": "An offline-first library for ebooks, PDFs and audiobooks that synchronises your collection and your progress across devices.",
   "applicationCategory": "MultimediaApplication",
-  "operatingSystem": "Linux, Android"
+  "operatingSystem": "Linux, Windows, Android"
 }
 </script>
 <link rel="icon" href="/icon/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/icon/bokheim-96.png" type="image/png" sizes="96x96">
 <link rel="icon" href="/icon/bokheim.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/icon/bokheim-180.png">
 <style>
@@ -51,19 +52,14 @@
     margin: 0;
     background: var(--cream);
     color: var(--text);
-    font-family: "Avenir Next", Avenir, "Century Gothic", sans-serif;
+    font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
     line-height: 1.5;
   }
 
   a { color: var(--ink); }
 
-  /* The page fills the viewport, with the hero absorbing whatever height is
-     left over so the feature row sits against the bottom edge. dvh keeps that
-     honest on mobile, where browser chrome shrinks the visible area. */
   .page {
     display: flex;
-    min-height: 100vh;
-    min-height: 100dvh;
     flex-direction: column;
     width: min(100% - 2rem, 75rem);
     margin: 0 auto;
@@ -71,12 +67,35 @@
     border-left: 1px solid var(--sage);
   }
 
+  /* Hero and feature row together occupy exactly one screen, with the hero
+     absorbing the leftover height so the features sit on the fold. This has to
+     be its own box: if the hero relied on free space in .page, anything added
+     below would consume that space and collapse it. dvh keeps the measure
+     honest on mobile, where browser chrome shrinks the visible area. */
+  .viewport {
+    display: flex;
+    /* A floor rather than a fixed height: the hero's own type is capped by vh
+       so the pair normally lands inside one screen, but if it ever needs more
+       (browser zoom, large system text) the row grows past the fold instead of
+       having its text clipped. Minus the hairline so the border under the row
+       falls on the last visible pixel rather than the first one below it. */
+    min-height: calc(100vh - 1px);
+    min-height: calc(100dvh - 1px);
+    flex-direction: column;
+  }
+
+  /* Takes whatever height the feature row leaves. min-height: 0 is what lets it
+     shrink below its content on a short window instead of pushing the row past
+     the fold. */
   .hero {
     display: flex;
-    flex: 1;
+    min-height: 0;
+    /* Basis 0, not auto: the hero is whatever height the feature row leaves,
+       rather than its own content height minus a shrink. */
+    flex: 1 1 0;
     align-items: center;
     justify-content: center;
-    padding: 5rem 1.5rem;
+    padding: clamp(1.5rem, 5vh, 5rem) 1.5rem;
     text-align: center;
   }
 
@@ -84,18 +103,20 @@
     width: min(100%, 44rem);
   }
 
+  /* Sized by whichever of the two dimensions is scarcer. Width alone would keep
+     the hero tall on a wide, short window and push the feature row past the
+     fold. Same reasoning for the title and summary below. */
   .mark {
     display: block;
-    width: clamp(4rem, 9vw, 5.5rem);
+    width: clamp(3rem, min(9vw, 11vh), 5.5rem);
     height: auto;
-    margin: 0 auto 1.25rem;
+    margin: 0 auto clamp(0.5rem, 1.5vh, 1.25rem);
   }
 
   h1 {
     margin: 0;
     color: var(--ink);
-    font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-    font-size: clamp(3.25rem, 7vw, 4.75rem);
+    font-size: clamp(2.5rem, min(7vw, 9vh), 4.75rem);
     font-style: italic;
     font-weight: 400;
     letter-spacing: -0.035em;
@@ -104,8 +125,8 @@
 
   .summary {
     max-width: 35rem;
-    margin: 1.25rem auto 0;
-    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    margin: clamp(0.6rem, 1.8vh, 1.25rem) auto 0;
+    font-size: clamp(1rem, min(2vw, 2.6vh), 1.25rem);
   }
 
   .download-actions {
@@ -113,7 +134,7 @@
     align-items: flex-start;
     justify-content: center;
     gap: 0.65rem;
-    margin-top: 2rem;
+    margin-top: clamp(1rem, 3vh, 2rem);
   }
 
   /* Split control: the primary download, plus a caret hinged to its right
@@ -220,15 +241,20 @@
 
   .download-menu-list a:hover { background: var(--greige); }
 
+  /* Sized by its own content, with the hero absorbing the rest. The cap is a
+     backstop: if the copy ever needs more than half the screen (small window,
+     large text, browser zoom) the row keeps its bottom edge on screen and the
+     hero gives way instead. */
   .features {
     display: grid;
+    max-height: 50dvh;
+    flex: 0 0 auto;
     grid-template-columns: repeat(3, 1fr);
     border-top: 1px solid var(--sage);
   }
 
   .feature {
-    min-height: 10rem;
-    padding: 1.5rem;
+    padding: clamp(1rem, 2.5vh, 1.5rem) 1.5rem;
   }
 
   .feature + .feature { border-left: 1px solid var(--sage); }
@@ -236,7 +262,6 @@
   .feature h2 {
     margin: 0;
     color: var(--ink);
-    font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
     font-size: 1.15rem;
     font-weight: 600;
     line-height: 1.25;
@@ -245,6 +270,269 @@
   .feature p {
     margin: 0.55rem 0 0;
     font-size: 0.95rem;
+  }
+
+  /* Abstract device frames. They are drawn entirely in CSS so the same
+     screenshot can be shown as a laptop, a phone and an e-reader without
+     shipping three crops of it. */
+  .devices {
+    padding: 4rem 1.5rem;
+    border-top: 1px solid var(--sage);
+  }
+
+  /* The device rows sit in the same measure as the screenshots below them, and
+     each is the measuring stick for its own frames. */
+  .device-stage {
+    width: min(100vw - 5rem, 68rem);
+    margin: 1.5rem auto 0;
+    container-type: inline-size;
+  }
+
+  .device-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    /* One height drives the whole row: each frame subtracts its own bezel from
+       it and lets its aspect ratio decide the width, so the three come out the
+       same height in different shapes. The height itself is solved from the
+       section width — the three aspect ratios sum to 2.914, and 1.63rem is the
+       bezels and gaps that stay fixed however tall the row gets — so the row
+       fills its section exactly. */
+    --frame-height: calc((100cqw - 1.63rem) / 2.914);
+  }
+
+  .device {
+    margin: 0;
+    flex: 0 0 auto;
+  }
+
+  /* The frame is the bezel; the screen is the padding box it encloses. */
+  .device-screen {
+    overflow: hidden;
+    border: 1px solid var(--sage);
+    background: var(--greige);
+    box-shadow: 0 0.5rem 1.4rem rgb(46 61 49 / 10%);
+  }
+
+  /* Height comes from the row; width follows from the aspect ratio. */
+  .device-screen img {
+    display: block;
+    width: auto;
+    object-fit: cover;
+    /* Portrait frames crop a landscape capture; anchoring top-left keeps the
+       start of the shelf in view rather than centring on empty covers. */
+    object-position: left top;
+  }
+
+  .laptop { width: auto; }
+
+  .laptop .device-screen {
+    padding: 0.55rem 0.55rem 0.85rem;
+    border-radius: 0.55rem 0.55rem 0.2rem 0.2rem;
+    background: var(--ink);
+  }
+
+  /* 1.95rem of bezel: 0.55 above the screen, 0.85 below it, 0.55 of base. */
+  .laptop .device-screen img {
+    aspect-ratio: 16 / 10;
+    height: calc(var(--frame-height) - 1.95rem);
+  }
+
+  /* The base sits under the lid. It used to overhang the way a hinge reads from
+     the front, but the row is sized to fill its section exactly, so anything
+     wider than the lid hangs off the edge of the page.
+
+     Three cheap tricks stand it up instead: a gradient so the deck catches
+     light along its front lip, a darker line where the hinge meets the lid, and
+     a notch bitten out of the front edge where your thumb opens it. */
+  .laptop .device-base {
+    position: relative;
+    width: 100%;
+    height: 0.7rem;
+    margin: 0 auto;
+    border-radius: 0 0 0.55rem 0.55rem;
+    background: linear-gradient(180deg, var(--sage) 0%, var(--warm-grey) 55%, var(--sage) 100%);
+  }
+
+  .laptop .device-base::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: rgb(46 61 49 / 30%);
+    content: "";
+  }
+
+  .laptop .device-base::after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 9%;
+    height: 0.22rem;
+    border-radius: 0.3rem 0.3rem 0 0;
+    background: var(--cream);
+    content: "";
+    transform: translateX(-50%);
+  }
+
+  /* Contact shadow: the frame reads as resting on the page rather than pasted
+     onto it. */
+  .laptop {
+    position: relative;
+    padding-bottom: 0.9rem;
+  }
+
+  .laptop::after {
+    position: absolute;
+    bottom: 0.2rem;
+    left: 50%;
+    width: 86%;
+    height: 0.75rem;
+    background: radial-gradient(ellipse at center top, rgb(46 61 49 / 18%), transparent 70%);
+    content: "";
+    transform: translateX(-50%);
+  }
+
+  .phone { width: auto; }
+
+  .phone .device-screen {
+    padding: 0.4rem;
+    border-radius: 1.1rem;
+    background: var(--ink);
+  }
+
+  .phone .device-screen img {
+    aspect-ratio: 707 / 1515;
+    height: calc(var(--frame-height) - 0.8rem);
+    border-radius: 0.75rem;
+  }
+
+  /* Sized from its screen rather than a fixed width, so it ends up exactly as
+     tall as the laptop. */
+  .ereader { width: auto; }
+
+  .ereader .device-screen {
+    padding: 0.5rem 0.5rem 1.6rem;
+    border-radius: 0.5rem;
+    background: var(--ink);
+  }
+
+  /* Matches the capture exactly, so the portrait shot fills the frame instead
+     of losing its right-hand column of covers to a crop. */
+  .ereader .device-screen img {
+    aspect-ratio: 1284 / 1515;
+    height: calc(var(--frame-height) - 2.1rem);
+    /* E-ink reads flatter and cooler than a backlit panel. */
+    filter: grayscale(1) contrast(0.92);
+  }
+
+  /* Sync demo: the same two frames as the row above, each holding two pages
+     stacked on top of each other. Fading the top page in turns the page; doing
+     it on the laptop first and the phone a beat later is the whole point. */
+  .sync {
+    padding: 4rem 1.5rem;
+    border-top: 1px solid var(--sage);
+  }
+
+  /* Two devices rather than three, and both windows differ from the ones in the
+     row above, so the row solves to its own height. Each frame takes the exact
+     ratio of its capture: at 16/10 the laptop would crop the reader's third
+     column against the right edge. */
+  .sync-row { --frame-height: calc((100cqw - 0.16rem) / 2.24); }
+
+  .sync-row .laptop .device-screen img { aspect-ratio: 2561 / 1514; }
+
+  .sync-row .phone .device-screen img { aspect-ratio: 831 / 1516; }
+
+  .page-stack { position: relative; }
+
+  .page-stack .page-b {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .sync-row .laptop .page-b { animation: turn-page 9s infinite; }
+
+  /* Trails the laptop by a second: the page arrives, then it syncs. */
+  .sync-row .phone .page-b { animation: turn-page 9s infinite 1s; }
+
+  @keyframes turn-page {
+    0%, 22% { opacity: 0; }
+    28%, 72% { opacity: 1; }
+    78%, 100% { opacity: 0; }
+  }
+
+  /* Motion is the whole illustration, so without it just show the later page
+     on both devices — the end state the animation was demonstrating. */
+  @media (prefers-reduced-motion: reduce) {
+    .page-stack .page-b {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  .shots {
+    padding: 4rem 1.5rem;
+    border-top: 1px solid var(--sage);
+  }
+
+  /* The reading measure for the whole column: headings and prose share one left
+     edge, and the screenshots break out past it. */
+  .shots-inner {
+    width: min(100%, 52rem);
+    margin: 0 auto;
+  }
+
+  /* Every screenshot on the page is introduced the same way: one heading style,
+     one measure, one paragraph beneath it. */
+  .shots h2,
+  .devices h2,
+  .sync h2 {
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  /* Room between one screenshot and the heading of the next. */
+  .shot + h2 { margin-top: 4rem; }
+
+  .shots-copy {
+    margin: 1rem 0 0;
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
+    /* Justified to match the serif, book-like feel. Hyphenation is what keeps
+       it from opening rivers of white space between words. */
+    hyphens: auto;
+    text-align: justify;
+  }
+
+  /* Prose keeps a narrow measure; screenshots break out past it, so they are
+     downscaled less and their interface text stays legible. */
+  .shot {
+    width: min(100vw - 5rem, 68rem);
+    margin: 1.5rem 0 0;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--sage);
+    border-radius: 0.35rem;
+  }
+
+  .shot figcaption {
+    margin-top: 0.85rem;
+    font-size: 0.9rem;
   }
 
   :focus-visible {
@@ -271,24 +559,46 @@
 
     #primary-download { flex: 1; }
 
-    .features { grid-template-columns: 1fr; }
+    /* Stacked, the three features need more room than a phone screen has left
+       over, so the first screen stops being a fixed box here. */
+    .viewport { height: auto; }
 
-    .feature { min-height: auto; }
+    .features { grid-template-columns: 1fr; }
 
     .feature + .feature {
       border-top: 1px solid var(--sage);
       border-left: 0;
+    }
+
+    /* Three across is too narrow to read here, so the laptop takes the full
+       width on its own line and the two handhelds share the line below it,
+       solved the same way from the width they have left. */
+    .device-row {
+      flex-wrap: wrap;
+      gap: 1rem;
+      --frame-height: calc((100cqw - 0.65rem) / 1.314);
+    }
+
+    .laptop {
+      flex-basis: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .laptop .device-screen img {
+      width: 100%;
+      height: auto;
     }
   }
 </style>
 </head>
 <body>
 <main class="page">
+  <div class="viewport">
   <header class="hero">
     <div class="hero-inner">
       <img class="mark" src="/icon/bokheim.svg" width="512" height="512" alt="">
       <h1>Bokheim</h1>
-      <p class="summary">One library for your books and audiobooks, kept within reach and in sync on every device.</p>
+      <p class="summary">One library for all your books on all your devices.</p>
 
       <div class="download-actions">
         <div class="download-split">
@@ -303,6 +613,7 @@
             <summary aria-label="Downloads for other platforms"></summary>
             <ul class="download-menu-list">
               <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-x86_64.AppImage">Linux</a></li>
+              <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-Windows-x86_64-Setup.exe">Windows</a></li>
               <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/bokheim-arm64.apk">Android</a></li>
             </ul>
           </details>
@@ -315,18 +626,105 @@
 
   <section class="features" aria-label="Features">
     <article class="feature">
-      <h2>Offline, and always caught up</h2>
-      <p>Every device holds the whole collection and they always works offline. They sync up when coming online</p>
+      <h2>Synced and offline</h2>
+      <p>Download the books you want offline.<br>Changes sync when you reconnect.</p>
     </article>
     <article class="feature">
-      <h2>One library, every format</h2>
-      <p>Ebooks, PDFs and audiobooks all live in the same library</p>
+      <h2>Catalogued, not rearranged</h2>
+      <p>Subjects are added automatically,<br>while your folders stay exactly as you left them.</p>
     </article>
     <article class="feature">
-      <h2>Find it without hunting</h2>
-      <p>Move through your books by author, subject or folder, and search the whole collection when you already know what you want.</p>
+      <h2>Your own files</h2>
+      <p>Ordinary EPUBs, PDFs and audio files.<br>No DRM, no lock-in, nothing to import.</p>
     </article>
   </section>
+  </div>
+
+  <section class="sync" aria-labelledby="sync-heading">
+    <div class="shots-inner">
+      <h2 id="sync-heading">Pick up where you left off</h2>
+      <p class="shots-copy">With a free account your books, bookmarks and reading position are synced automatically.</p>
+    </div>
+
+    <div class="device-stage">
+      <div class="device-row sync-row">
+        <figure class="device laptop">
+          <div class="device-screen">
+            <div class="page-stack">
+              <img class="page-a" src="/screenshots/sync-computer-a.webp" width="1536" height="908" loading="lazy" decoding="async" alt="A book open on a computer.">
+              <img class="page-b" src="/screenshots/sync-computer-b.webp" width="1536" height="908" loading="lazy" decoding="async" alt="The same book on the computer, a page later.">
+            </div>
+          </div>
+          <div class="device-base"></div>
+        </figure>
+
+        <figure class="device phone">
+          <div class="device-screen">
+            <div class="page-stack">
+              <img class="page-a" src="/screenshots/sync-phone-a.webp" width="520" height="949" loading="lazy" decoding="async" alt="The same book open on a phone.">
+              <img class="page-b" src="/screenshots/sync-phone-b.webp" width="520" height="949" loading="lazy" decoding="async" alt="The same book on the phone, following the computer to the next page.">
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="devices" aria-labelledby="devices-heading">
+    <div class="shots-inner">
+      <h2 id="devices-heading">One app on every screen</h2>
+      <p class="shots-copy">Computer, e-reader and phone, each running the same library.</p>
+    </div>
+
+    <div class="device-stage">
+      <div class="device-row">
+        <figure class="device laptop">
+          <div class="device-screen">
+            <img src="/screenshots/library.webp" width="1080" height="719" loading="lazy" decoding="async" alt="The Bokheim library on a laptop.">
+          </div>
+          <div class="device-base"></div>
+        </figure>
+
+        <figure class="device ereader">
+          <div class="device-screen">
+            <img src="/screenshots/ereader.webp" width="580" height="684" loading="lazy" decoding="async" alt="The Bokheim library on an e-reader, showing a folder of classics as a grid of book covers.">
+          </div>
+        </figure>
+
+        <figure class="device phone">
+          <div class="device-screen">
+            <img src="/screenshots/phone.webp" width="340" height="729" loading="lazy" decoding="async" alt="The Bokheim library on a phone, showing a folder of classics as a grid of book covers.">
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="shots" aria-label="Screenshots">
+    <div class="shots-inner">
+      <h2>The folders you already have</h2>
+      <p class="shots-copy">Your books stay organised the way you keep them.</p>
+
+      <figure class="shot">
+        <img src="/screenshots/folders.webp" width="2176" height="1044" loading="lazy" decoding="async" alt="The Bokheim folders view, listing folders such as Classics, History and Philosophy with the number of books in each.">
+      </figure>
+
+      <h2>Library-grade categorisation</h2>
+      <p class="shots-copy">Books are automatically catalogued using a combination of commercial, Library of Congress and Dewey Decimal systems.</p>
+
+      <figure class="shot">
+        <img src="/screenshots/subjects.webp" width="2176" height="942" loading="lazy" decoding="async" alt="The Bokheim subjects view, listing categories such as Humanities, Literature and Social Sciences with the number of books in each.">
+      </figure>
+
+      <h2>Find your next read</h2>
+      <p class="shots-copy">Search and browse classics from the public domain.</p>
+
+      <figure class="shot">
+        <img src="/screenshots/store.webp" width="2176" height="975" loading="lazy" decoding="async" alt="The Bokheim store, browsing the Philosophy subject, with sub-subjects such as Ethics and Metaphysics &amp; Ontology above search results for The Prince and The Problems of Philosophy.">
+      </figure>
+    </div>
+  </section>
+
 </main>
 
 <script>
@@ -334,11 +732,12 @@
 
   const downloads = {
     linux: ["Download for Linux", `${releases}/download/Bokheim-x86_64.AppImage`],
+    windows: ["Download for Windows", `${releases}/download/Bokheim-Windows-x86_64-Setup.exe`],
     android: ["Download for Android", `${releases}/download/bokheim-arm64.apk`],
   };
 
-  // Only Linux and Android are built today. Anything else keeps the generic
-  // label and lands on the releases page.
+  // Only Linux, Windows and Android are built today. Anything else keeps the
+  // generic label and lands on the releases page.
   function detectOS() {
     const platform = navigator.userAgentData?.platform || navigator.platform || "";
     const userAgent = navigator.userAgent || "";
@@ -346,6 +745,7 @@
     // Android reports "Linux" as its platform, so it has to be checked first.
     if (/Android/i.test(userAgent)) return "android";
     if (/Linux/i.test(platform)) return "linux";
+    if (/Win/i.test(platform)) return "windows";
     return null;
   }
 
