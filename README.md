@@ -32,8 +32,9 @@ The page does not host any binaries. Every download link points at the latest
 release in [`bokheim-release`](https://github.com/JohanAnderssonOstling/bokheim-release):
 
 - Linux — `releases/latest/download/Bokheim-x86_64.AppImage`
-- Android — `releases/latest/download/bokheim-arm64.apk`
+- Windows — `releases/latest/download/Bokheim-Windows-x86_64-Setup.exe`
+- Android — `releases/latest/download/Bokheim-Android-arm64.apk`
 
-Both filenames are stable across versions, and both are produced by the release
-workflows in the main `bokheim` repository. `releases/latest` skips draft
+These filenames are stable across versions and are produced by the release
+workflows in the `bokheim-release` repository. `releases/latest` skips draft
 releases, so a release has to be published before these links resolve.
