@@ -34,7 +34,16 @@ release in [`bokheim-release`](https://github.com/JohanAnderssonOstling/bokheim-
 - Linux — `releases/latest/download/Bokheim-x86_64.AppImage`
 - Windows — `releases/latest/download/Bokheim-Windows-x86_64-Setup.exe`
 - Android — `releases/latest/download/Bokheim-Android-arm64.apk`
+- macOS (Apple Silicon and Intel, macOS 13+) — `releases/latest/download/Bokheim-macOS-universal.dmg`
 
 These filenames are stable across versions and are produced by the release
 workflows in the `bokheim-release` repository. `releases/latest` skips draft
 releases, so a release has to be published before these links resolve.
+
+The macOS workflow produces a universal disk image with an ad-hoc signed app.
+It is not notarized by Apple. The page detects macOS and explains the initial
+Privacy & Security → Open Anyway approval. iPads that identify as MacIntel keep
+the browser/release-page option instead of receiving a macOS download.
+
+Publish the first macOS release asset before deploying these website changes;
+the stable macOS link does not resolve until that asset exists in the latest release.

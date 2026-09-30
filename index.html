@@ -28,7 +28,7 @@
   },
   "description": "An offline-first library for ebooks, PDFs and audiobooks that synchronises your collection and your progress across devices.",
   "applicationCategory": "MultimediaApplication",
-  "operatingSystem": "Linux, Windows, Android"
+  "operatingSystem": "Linux, Windows, Android, macOS"
 }
 </script>
 <link rel="icon" href="/icon/favicon.ico" sizes="16x16 32x32 48x48">
@@ -135,6 +135,13 @@
     justify-content: center;
     gap: 0.65rem;
     margin-top: clamp(1rem, 3vh, 2rem);
+  }
+
+  .mac-install-note {
+    max-width: 34rem;
+    margin: 0.75rem auto 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
   }
 
   /* Split control: the primary download, plus a caret hinged to its right
@@ -615,12 +622,19 @@
               <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-x86_64.AppImage">Linux</a></li>
               <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-Windows-x86_64-Setup.exe">Windows</a></li>
               <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-Android-arm64.apk">Android</a></li>
+              <li><a id="macos-download" href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-macOS-universal.dmg" aria-describedby="mac-install-note">macOS · Apple Silicon &amp; Intel</a></li>
             </ul>
           </details>
         </div>
 
         <a class="webapp-link" href="https://app.bokheim.se">Open in browser</a>
       </div>
+      <p id="mac-install-note" class="mac-install-note" hidden>
+        On macOS 13 or later, open the disk image and drag Bokheim to Applications.
+        If macOS blocks it, try opening Bokheim, then choose
+        <strong>System Settings → Privacy &amp; Security → Open Anyway</strong> and confirm Open.
+        This download is not notarised by Apple.
+      </p>
     </div>
   </header>
 
@@ -734,29 +748,40 @@
     linux: ["Download for Linux", `${releases}/download/Bokheim-x86_64.AppImage`],
     windows: ["Download for Windows", `${releases}/download/Bokheim-Windows-x86_64-Setup.exe`],
     android: ["Download for Android", `${releases}/download/Bokheim-Android-arm64.apk`],
+    macos: ["Download for macOS", `${releases}/download/Bokheim-macOS-universal.dmg`],
   };
 
-  // Only Linux, Windows and Android are built today. Anything else keeps the
-  // generic label and lands on the releases page.
+  // Unsupported platforms keep the generic label and releases-page link.
   function detectOS() {
     const platform = navigator.userAgentData?.platform || navigator.platform || "";
     const userAgent = navigator.userAgent || "";
+
+    // iPadOS can report MacIntel; it needs the browser app, not a Mac disk image.
+    if (/iPad|iPhone|iPod/i.test(userAgent) || (/Mac/i.test(platform) && navigator.maxTouchPoints > 1)) return null;
 
     // Android reports "Linux" as its platform, so it has to be checked first.
     if (/Android/i.test(userAgent)) return "android";
     if (/Linux/i.test(platform)) return "linux";
     if (/Win/i.test(platform)) return "windows";
+    if (/Mac/i.test(platform)) return "macos";
     return null;
   }
 
   const primaryDownload = document.querySelector("#primary-download");
   const downloadLabel = document.querySelector("#download-label");
-  const download = downloads[detectOS()];
+  const os = detectOS();
+  const download = downloads[os];
 
   if (download) {
     downloadLabel.textContent = download[0];
     primaryDownload.href = download[1];
   }
+
+  const macInstallNote = document.querySelector("#mac-install-note");
+  macInstallNote.hidden = os !== "macos";
+  document.querySelector("#macos-download").addEventListener("click", () => {
+    macInstallNote.hidden = false;
+  });
 </script>
 </body>
 </html>
