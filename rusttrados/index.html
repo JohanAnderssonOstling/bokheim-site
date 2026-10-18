@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Download RustTrados — Bokheim</title>
+  <meta name="description" content="Download RustTrados, a translation editor for Windows.">
+  <link rel="canonical" href="https://bokheim.se/rusttrados/">
+  <link rel="icon" href="/icon/bokheim.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Download RustTrados">
+  <meta property="og:description" content="A translation editor for Windows.">
+  <meta property="og:url" content="https://bokheim.se/rusttrados/">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #2e3d31;
+      --cream: #f9f5ee;
+      --sage: #bac1b3;
+      --text: #1f2830;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--text);
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      line-height: 1.5;
+    }
+
+    a { color: var(--ink); }
+
+    .page {
+      width: min(100% - 2rem, 75rem);
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0 auto;
+      border-inline: 1px solid var(--sage);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header { padding: 1.5rem clamp(1rem, 4vw, 3rem); }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    main {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem 7rem;
+      text-align: center;
+    }
+
+    .download { width: min(100%, 32rem); }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(2.8rem, 9vw, 4.75rem);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+    }
+
+    .summary { margin: 1rem 0 2rem; font-size: 1.2rem; }
+
+    .download-button {
+      display: inline-flex;
+      min-height: 3.25rem;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      max-width: 100%;
+      padding: 0.85rem 1.4rem;
+      border: 1px solid var(--ink);
+      border-radius: 0.35rem;
+      background: var(--ink);
+      color: var(--cream);
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .download-button:hover { background: var(--text); }
+    .download-button svg { width: 1.2rem; height: 1.2rem; flex: none; }
+    .platform { margin: 0.8rem 0 0; font-size: 0.9rem; }
+    .instructions { margin: 2rem auto 0; max-width: 27rem; }
+    :focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+    ::selection { background: var(--sage); color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="brand" href="/">
+        <img src="/icon/bokheim.svg" width="28" height="28" alt="">
+        Bokheim
+      </a>
+    </header>
+    <main>
+      <section class="download" aria-labelledby="download-title">
+        <h1 id="download-title">RustTrados</h1>
+        <p class="summary">A translation editor for Windows.</p>
+        <a class="download-button" href="https://github.com/JohanAnderssonOstling/rusttrados-release/releases/latest/download/rusttrados-windows-x86_64.zip" aria-describedby="download-platform download-instructions">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/>
+          </svg>
+          Download for Windows
+        </a>
+        <p class="platform" id="download-platform">Windows · 64-bit · ZIP download</p>
+        <p class="instructions" id="download-instructions">Extract the ZIP and open <strong>rusttrados.exe</strong>.
+          Keep <strong>rusttrados-proz-webview.exe</strong> in the same folder.</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
