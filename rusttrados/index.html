@@ -112,17 +112,32 @@
       <section class="download" aria-labelledby="download-title">
         <h1 id="download-title">RustTrados</h1>
         <p class="summary">A translation editor for Windows.</p>
-        <a class="download-button" href="https://github.com/JohanAnderssonOstling/rusttrados-release/releases/latest/download/rusttrados-windows-x86_64.zip" aria-describedby="download-platform download-instructions">
+        <a class="download-button" href="https://github.com/JohanAnderssonOstling/rusttrados-release/releases/latest" aria-describedby="download-platform download-instructions">
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/>
           </svg>
           Download for Windows
         </a>
         <p class="platform" id="download-platform">Windows · 64-bit · ZIP download</p>
-        <p class="instructions" id="download-instructions">Extract the ZIP and open <strong>rusttrados.exe</strong>.
-          Keep <strong>rusttrados-proz-webview.exe</strong> in the same folder.</p>
+        <p class="instructions" id="download-instructions">Extract the ZIP and open <strong>rusttrados.exe</strong>.</p>
       </section>
     </main>
   </div>
+  <script>
+    fetch('https://api.github.com/repos/JohanAnderssonOstling/rusttrados-release/releases/latest', {
+      headers: { Accept: 'application/vnd.github+json' }
+    })
+      .then(response => {
+        if (!response.ok) throw new Error('Release information is unavailable');
+        return response.json();
+      })
+      .then(release => {
+        const archive = release.assets.find(asset => /^rusttrados-v.+-windows-x86_64\.zip$/.test(asset.name));
+        if (!archive) return;
+        document.querySelector('.download-button').href = archive.browser_download_url;
+        document.getElementById('download-platform').textContent = `${release.tag_name} · Windows · 64-bit · ZIP download`;
+      })
+      .catch(() => {});
+  </script>
 </body>
 </html>
