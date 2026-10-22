@@ -11,6 +11,7 @@ to preview it; what you see locally is what gets published.
 | --- | --- |
 | `index.html` | The Bokheim page — markup, styles and the OS-detection script |
 | `rusttrados/index.html` | RustTrados Windows download page at `/rusttrados/` |
+| `delete-account/` | Public account deletion form at `/delete-account/` |
 | `icon/` | Favicon, Apple touch icon and the SVG mark used in the hero |
 | `CNAME` | Custom domain for GitHub Pages |
 | `robots.txt` | Crawler policy |
@@ -26,6 +27,22 @@ custom domain to `bokheim.se`.
 DNS for the apex domain needs four A records pointing at GitHub Pages —
 `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` —
 and a `CNAME` record for `www` pointing at `johananderssonostling.github.io`.
+
+## Account deletion
+
+The account deletion URL is `https://bokheim.se/delete-account/`. It is linked
+from the homepage and can be supplied as the app's account deletion URL.
+The form requires the account email, current password and an explicit `DELETE`
+confirmation. It sends JSON directly to
+`https://api.bokheim.se/api/auth/delete-account`, without cookies or storing
+credentials in browser storage. Credentials are cleared on completion, failure,
+cancel and page exit.
+
+Deploy the matching sync-server endpoint from the Bokheim source repository
+before publishing the page. It removes the user and cascading account records,
+revokes all sessions, and deletes pending registration and queued account email
+records. Physical uploaded assets follow the existing server retention behavior;
+the page explicitly describes this and distinguishes files on the user's devices.
 
 ## Downloads
 
