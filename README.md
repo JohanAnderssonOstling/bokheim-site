@@ -12,6 +12,7 @@ to preview it; what you see locally is what gets published.
 | `index.html` | The Bokheim page — markup, styles and the OS-detection script |
 | `rusttrados/index.html` | RustTrados Windows download page at `/rusttrados/` |
 | `delete-account/` | Public account deletion form at `/delete-account/` |
+| `privacy/` | Public privacy policy at `/privacy/` |
 | `icon/` | Favicon, Apple touch icon and the SVG mark used in the hero |
 | `CNAME` | Custom domain for GitHub Pages |
 | `robots.txt` | Crawler policy |
@@ -43,6 +44,19 @@ before publishing the page. It removes the user and cascading account records,
 revokes all sessions, and deletes pending registration and queued account email
 records. Physical uploaded assets follow the existing server retention behavior;
 the page explicitly describes this and distinguishes files on the user's devices.
+
+## Privacy policy
+
+The privacy policy URL is `https://bokheim.se/privacy/`. It is linked from the
+homepage and account deletion page and can be supplied in Play Console. The app
+also needs to expose the policy through an in-app link or text.
+
+The policy identifies the developer as `bokheim` and uses `johan@bokheim.se` for
+privacy requests. It describes accounts, synced files and reading state, email
+delivery, book metadata and cover lookups, security, and the current limitations
+of physical file deletion. Update it whenever those practices change. Publishing
+the policy does not implement erasure of retained uploads or establish a backup
+retention schedule.
 
 ## Downloads
 
