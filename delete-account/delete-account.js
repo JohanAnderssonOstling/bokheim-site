@@ -39,7 +39,7 @@ deletion.addEventListener("submit", async (event) => {
   deleteButton.disabled = true;
   cancelButton.disabled = true;
   status.dataset.error = "false";
-  status.textContent = "Deleting your account…";
+  status.textContent = "Deleting account…";
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 30000);
   try {
@@ -54,17 +54,17 @@ deletion.addEventListener("submit", async (event) => {
     });
     if (response.status !== 204) {
       const messages = {
-        400: "Enter DELETE exactly to confirm account deletion.",
-        401: "The email or password is incorrect. Check your account details and try again.",
-        404: "Account deletion is not available on the server yet. Please try again later.",
-        429: "Too many attempts. Wait five minutes before trying again.",
+        400: "Type DELETE to confirm.",
+        401: "Incorrect email or password.",
+        404: "Account deletion is temporarily unavailable.",
+        429: "Too many attempts. Try again in five minutes.",
       };
-      throw new Error(messages[response.status] || "The server could not complete account deletion. Please try again later.");
+      throw new Error(messages[response.status] || "Could not delete your account. Try again later.");
     }
     credentials.reset();
     deletion.reset();
     review.hidden = true;
-    status.textContent = "Your Bokheim account and synced library records have been deleted. All sessions have been revoked. Books saved on your devices remain there.";
+    status.textContent = "Your account has been deleted.";
     status.focus();
   } catch (error) {
     password.value = "";
@@ -73,7 +73,7 @@ deletion.addEventListener("submit", async (event) => {
     accountForm.hidden = false;
     status.dataset.error = "true";
     status.textContent = error instanceof TypeError || error.name === "AbortError"
-      ? "The server response could not be received. Deletion may have completed. Try signing in to Bokheim to check your account before retrying."
+      ? "No server response. Deletion may have completed. Check whether you can still sign in before retrying."
       : error.message;
     status.focus();
   } finally {
