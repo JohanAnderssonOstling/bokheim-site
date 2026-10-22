@@ -153,7 +153,8 @@
 
   #primary-download,
   .download-menu summary,
-  .webapp-link {
+  .webapp-link,
+  .android-tester-link {
     display: inline-flex;
     min-height: 3rem;
     align-items: center;
@@ -197,12 +198,14 @@
   #primary-download:hover,
   .download-menu summary:hover { background: var(--text); }
 
-  .webapp-link {
+  .webapp-link,
+  .android-tester-link {
     background: var(--cream);
     color: var(--ink);
   }
 
-  .webapp-link:hover { background: var(--greige); }
+  .webapp-link:hover,
+  .android-tester-link:hover { background: var(--greige); }
 
   .download-menu summary::-webkit-details-marker { display: none; }
 
@@ -562,7 +565,7 @@
       flex-direction: column;
     }
 
-    .download-split, .webapp-link { width: 100%; }
+    .download-split, .webapp-link, .android-tester-link { width: 100%; }
 
     #primary-download { flex: 1; }
 
@@ -630,6 +633,7 @@
         </div>
 
         <a class="webapp-link" href="https://app.bokheim.se">Open in browser</a>
+        <a class="android-tester-link" href="https://play.google.com/apps/internaltest/4700876848005652707">Android tester</a>
       </div>
       <p class="release-version"><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/tag/v0.1.10">Version 0.1.10 · Release notes</a></p>
       <p id="mac-install-note" class="mac-install-note" hidden>
