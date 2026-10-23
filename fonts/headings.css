@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "NV Garamond";
+  src: url("./NV_Garamond-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NV Garamond";
+  src: url("./NV_Garamond-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "NV Garamond", Georgia, serif;
+  font-style: normal;
+}
