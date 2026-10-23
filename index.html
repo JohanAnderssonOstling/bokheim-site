@@ -153,8 +153,7 @@
 
   #primary-download,
   .download-menu summary,
-  .webapp-link,
-  .android-tester-link {
+  .webapp-link {
     display: inline-flex;
     min-height: 3rem;
     align-items: center;
@@ -198,14 +197,12 @@
   #primary-download:hover,
   .download-menu summary:hover { background: var(--text); }
 
-  .webapp-link,
-  .android-tester-link {
+  .webapp-link {
     background: var(--cream);
     color: var(--ink);
   }
 
-  .webapp-link:hover,
-  .android-tester-link:hover { background: var(--greige); }
+  .webapp-link:hover { background: var(--greige); }
 
   .download-menu summary::-webkit-details-marker { display: none; }
 
@@ -306,10 +303,10 @@
     /* One height drives the whole row: each frame subtracts its own bezel from
        it and lets its aspect ratio decide the width, so the three come out the
        same height in different shapes. The height itself is solved from the
-       section width — the three aspect ratios sum to 2.914, and 1.63rem is the
+       section width — the three aspect ratios sum to 3.01, and 1.63rem is the
        bezels and gaps that stay fixed however tall the row gets — so the row
        fills its section exactly. */
-    --frame-height: calc((100cqw - 1.63rem) / 2.914);
+    --frame-height: calc((100cqw - 1.63rem) / 3.01);
   }
 
   .device {
@@ -414,7 +411,7 @@
   }
 
   .phone .device-screen img {
-    aspect-ratio: 707 / 1515;
+    aspect-ratio: 9 / 16;
     height: calc(var(--frame-height) - 0.8rem);
     border-radius: 0.75rem;
   }
@@ -565,7 +562,7 @@
       flex-direction: column;
     }
 
-    .download-split, .webapp-link, .android-tester-link { width: 100%; }
+    .download-split, .webapp-link { width: 100%; }
 
     #primary-download { flex: 1; }
 
@@ -631,7 +628,6 @@
         </div>
 
         <a class="webapp-link" href="https://app.bokheim.se">Open in browser</a>
-        <a class="android-tester-link" href="https://play.google.com/apps/internaltest/4700876848005652707">Android tester</a>
       </div>
       <p id="mac-install-note" class="mac-install-note" hidden>
         On macOS 13 or later, open the disk image and drag Bokheim to Applications.
@@ -698,7 +694,7 @@
       <div class="device-row">
         <figure class="device laptop">
           <div class="device-screen">
-            <img src="/screenshots/library.webp" width="1080" height="719" loading="lazy" decoding="async" alt="The Bokheim library on a laptop.">
+            <img src="/screenshots/library.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="The Classics library on desktop, with Pride and Prejudice in the recently read shelf and the full navigation sidebar visible.">
           </div>
           <div class="device-base"></div>
         </figure>
@@ -711,7 +707,7 @@
 
         <figure class="device phone">
           <div class="device-screen">
-            <img src="/screenshots/phone.webp" width="340" height="729" loading="lazy" decoding="async" alt="The Bokheim library on a phone, showing a folder of classics as a grid of book covers.">
+            <img src="/screenshots/phone.webp" width="1080" height="1920" loading="lazy" decoding="async" alt="The Classics library on an Android phone, showing its books as a grid of covers.">
           </div>
         </figure>
       </div>
@@ -724,21 +720,28 @@
       <p class="shots-copy">Your books stay organised the way you keep them.</p>
 
       <figure class="shot">
-        <img src="/screenshots/folders.webp" width="2176" height="1044" loading="lazy" decoding="async" alt="The Bokheim folders view, listing folders such as Classics, History and Philosophy with the number of books in each.">
+        <img src="/screenshots/folders.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="The Classics library in Bokheim's desktop folders view, with book covers and the full navigation sidebar.">
       </figure>
 
       <h2>Library-grade categorisation</h2>
       <p class="shots-copy">Books are automatically catalogued using a combination of commercial, Library of Congress and Dewey Decimal systems.</p>
 
       <figure class="shot">
-        <img src="/screenshots/subjects.webp" width="2176" height="942" loading="lazy" decoding="async" alt="The Bokheim subjects view, listing categories such as Humanities, Literature and Social Sciences with the number of books in each.">
+        <img src="/screenshots/subjects.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="The Classics library's literature subjects, grouped by language and genre with book cover previews.">
       </figure>
 
       <h2>Find your next read</h2>
       <p class="shots-copy">Search and browse classics from the public domain.</p>
 
       <figure class="shot">
-        <img src="/screenshots/store.webp" width="2176" height="975" loading="lazy" decoding="async" alt="The Bokheim store, browsing the Philosophy subject, with sub-subjects such as Ethics and Metaphysics &amp; Ontology above search results for The Prince and The Problems of Philosophy.">
+        <img src="/screenshots/store.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="Bokheim's desktop catalog showing Jane Austen books, including Pride and Prejudice.">
+      </figure>
+
+      <h2>Read without distractions</h2>
+      <p class="shots-copy">A clear page, with the controls there when you need them.</p>
+
+      <figure class="shot">
+        <img src="/screenshots/reader.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="Pride and Prejudice open in Bokheim's two-column desktop reader, with the sidebar hidden.">
       </figure>
     </div>
   </section>
