@@ -304,10 +304,10 @@
     /* One height drives the whole row: each frame subtracts its own bezel from
        it and lets its aspect ratio decide the width, so the three come out the
        same height in different shapes. The height itself is solved from the
-       section width — the three aspect ratios sum to 3.01, and 1.63rem is the
+       section width — the three aspect ratios sum to 3.011, and 1.31rem is the
        bezels and gaps that stay fixed however tall the row gets — so the row
        fills its section exactly. */
-    --frame-height: calc((100cqw - 1.63rem) / 3.01);
+    --frame-height: calc((100cqw - 1.31rem) / 3.011);
   }
 
   .device {
@@ -341,10 +341,10 @@
     background: var(--ink);
   }
 
-  /* 1.95rem of bezel: 0.55 above the screen, 0.85 below it, 0.55 of base. */
+  /* Include both borders, the lid padding and the base in the shared height. */
   .laptop .device-screen img {
     aspect-ratio: 16 / 10;
-    height: calc(var(--frame-height) - 1.95rem);
+    height: calc(var(--frame-height) - 2.1rem - 2px);
   }
 
   /* The base sits under the lid. It used to overhang the way a hinge reads from
@@ -389,12 +389,11 @@
      onto it. */
   .laptop {
     position: relative;
-    padding-bottom: 0.9rem;
   }
 
   .laptop::after {
     position: absolute;
-    bottom: 0.2rem;
+    bottom: -0.7rem;
     left: 50%;
     width: 86%;
     height: 0.75rem;
@@ -413,7 +412,7 @@
 
   .phone .device-screen img {
     aspect-ratio: 9 / 16;
-    height: calc(var(--frame-height) - 0.8rem);
+    height: calc(var(--frame-height) - 0.8rem - 2px);
     border-radius: 0.75rem;
   }
 
@@ -430,8 +429,8 @@
   /* Matches the capture exactly, so the portrait shot fills the frame instead
      of losing its right-hand column of covers to a crop. */
   .ereader .device-screen img {
-    aspect-ratio: 1284 / 1515;
-    height: calc(var(--frame-height) - 2.1rem);
+    aspect-ratio: 1160 / 1368;
+    height: calc(var(--frame-height) - 2.1rem - 2px);
     /* E-ink reads flatter and cooler than a backlit panel. */
     filter: grayscale(1) contrast(0.92);
   }
@@ -578,13 +577,12 @@
       border-left: 0;
     }
 
-    /* Three across is too narrow to read here, so the laptop takes the full
-       width on its own line and the two handhelds share the line below it,
-       solved the same way from the width they have left. */
+    /* The laptop fills its line; the handhelds keep its total frame height. */
     .device-row {
       flex-wrap: wrap;
       gap: 1rem;
-      --frame-height: calc((100cqw - 0.65rem) / 1.314);
+      column-gap: clamp(0px, calc(10vw - 2rem), 1rem);
+      --frame-height: calc((100cqw - 1.1rem - 2px) / 1.6 + 2.1rem + 2px);
     }
 
     .laptop {
@@ -592,9 +590,8 @@
       margin-bottom: 1rem;
     }
 
-    .laptop .device-screen img {
-      width: 100%;
-      height: auto;
+    .sync-row {
+      --frame-height: calc((100cqw - 1.1rem - 2px) / 1.69155 + 2.1rem + 2px);
     }
   }
 </style>
@@ -695,14 +692,14 @@
       <div class="device-row">
         <figure class="device laptop">
           <div class="device-screen">
-            <img src="/screenshots/library.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="The Classics library on desktop, with Pride and Prejudice in the recently read shelf and the full navigation sidebar visible.">
+            <img src="/screenshots/library.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="The Classics library's Books view on desktop, with book covers and the full navigation sidebar visible.">
           </div>
           <div class="device-base"></div>
         </figure>
 
         <figure class="device ereader">
           <div class="device-screen">
-            <img src="/screenshots/ereader.webp" width="580" height="684" loading="lazy" decoding="async" alt="The Bokheim library on an e-reader, showing a folder of classics as a grid of book covers.">
+            <img src="/screenshots/ereader.webp" width="1160" height="1368" loading="lazy" decoding="async" alt="The Classics library's Books view in an e-reader frame, with the current navigation sidebar and book cover grid.">
           </div>
         </figure>
 
