@@ -51,12 +51,13 @@ The privacy policy URL is `https://bokheim.se/privacy/`. It is linked from the
 homepage and account deletion page and can be supplied in Play Console. The app
 also needs to expose the policy through an in-app link or text.
 
-The policy identifies the developer as `bokheim` and uses `johan@bokheim.se` for
-privacy requests. It describes accounts, synced files and reading state, email
-delivery, book metadata and cover lookups, security, and the current limitations
-of physical file deletion. Update it whenever those practices change. Publishing
-the policy does not implement erasure of retained uploads or establish a backup
-retention schedule.
+The policy identifies Johan Andersson Östling as the developer and data
+controller and uses `johan@bokheim.se` for privacy requests. It describes accounts,
+synced files and reading state, email delivery, book metadata and cover lookups,
+security, and file deletion. The account deletion page uses the same retention
+wording: uploaded files are deleted once no account uses them; device copies
+remain on the user's devices. Deploy the matching sync-server cleanup before
+publishing these deletion statements. Update the policy when practices change.
 
 ## Downloads
 
