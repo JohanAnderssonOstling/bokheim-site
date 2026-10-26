@@ -145,6 +145,13 @@
     line-height: 1.5;
   }
 
+  .kobo-install { margin-top: 1rem; }
+
+  .kobo-install p {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+  }
+
   /* Split control: the primary download, plus a caret hinged to its right
      edge that reveals the builds for the other platform. */
   .download-split {
@@ -634,6 +641,10 @@
         <strong>System Settings → Privacy &amp; Security → Open Anyway</strong> and confirm Open.
         This download is not notarised by Apple.
       </p>
+      <div id="kobo-install" class="kobo-install" hidden>
+        <a id="kobo-download" class="webapp-link" aria-describedby="kobo-install-note">Install on Kobo</a>
+        <p id="kobo-install-note">Connect your Kobo by USB, then run the installer on your computer.</p>
+      </div>
     </div>
   </header>
 
@@ -751,6 +762,11 @@
     macos: ["Download for macOS", `${releases}/download/Bokheim-macOS-universal.dmg`],
   };
 
+  const koboDownloads = {
+    linux: ["Kobo installer for Linux", `${releases}/download/Bokheim-Kobo-Installer-Linux-x86_64.AppImage`],
+    windows: ["Kobo installer for Windows", `${releases}/download/Bokheim-Kobo-Installer-Windows-x86_64.exe`],
+  };
+
   // Unsupported platforms keep the generic label and releases-page link.
   function detectOS() {
     const platform = navigator.userAgentData?.platform || navigator.platform || "";
@@ -759,8 +775,11 @@
     // iPadOS can report MacIntel; it needs the browser app, not a Mac disk image.
     if (/iPad|iPhone|iPod/i.test(userAgent) || (/Mac/i.test(platform) && navigator.maxTouchPoints > 1)) return null;
 
+    if (/Windows Phone|IEMobile/i.test(userAgent)) return null;
+
     // Android reports "Linux" as its platform, so it has to be checked first.
-    if (/Android/i.test(userAgent)) return "android";
+    if (/Android/i.test(userAgent) || /Android/i.test(platform)) return "android";
+    if (navigator.userAgentData?.mobile || /Mobi|Tablet|Kindle|Silk|Kobo|CrOS/i.test(userAgent)) return null;
     if (/Linux/i.test(platform)) return "linux";
     if (/Win/i.test(platform)) return "windows";
     if (/Mac/i.test(platform)) return "macos";
@@ -775,6 +794,16 @@
   if (download) {
     downloadLabel.textContent = download[0];
     primaryDownload.href = download[1];
+  }
+
+  const koboDownload = koboDownloads[os];
+  // The Linux installer is x86_64-only; ARM Linux computers cannot run it.
+  const armLinux = os === "linux" && /arm|aarch/i.test(`${navigator.platform} ${navigator.userAgent}`);
+  if (koboDownload && !armLinux) {
+    const koboLink = document.querySelector("#kobo-download");
+    koboLink.textContent = koboDownload[0];
+    koboLink.href = koboDownload[1];
+    document.querySelector("#kobo-install").hidden = false;
   }
 
   const macInstallNote = document.querySelector("#mac-install-note");

@@ -83,6 +83,16 @@ These filenames are stable across versions and are produced by the release
 workflows in the `bokheim-release` repository. `releases/latest` skips draft
 releases, so a release has to be published before these links resolve.
 
+The Kobo installer option automatically selects the matching desktop download:
+
+- Linux x86_64 — `releases/latest/download/Bokheim-Kobo-Installer-Linux-x86_64.AppImage`
+- Windows — `releases/latest/download/Bokheim-Kobo-Installer-Windows-x86_64.exe`
+
+The option stays hidden on phones, tablets (including iPads reporting a Mac
+platform), ARM Linux, macOS (no Kobo installer is available), ChromeOS, unknown
+platforms, and when JavaScript is disabled. Connect the Kobo by USB, then run
+the installer on the computer. The Kobo application package is embedded.
+
 The macOS workflow produces a universal disk image with an ad-hoc signed app.
 It is not notarized by Apple. The page detects macOS and explains the initial
 Privacy & Security → Open Anyway approval. iPads that identify as MacIntel keep
