@@ -75,7 +75,7 @@ release in [`bokheim-release`](https://github.com/JohanAnderssonOstling/bokheim-
 
 - Linux — `releases/latest/download/Bokheim-x86_64.AppImage`
 - Windows installer — `releases/latest/download/Bokheim-Windows-x86_64-Setup.exe`
-- Windows standalone (single EXE, no installer) — `releases/latest/download/Bokheim-Windows-x86_64-Standalone.exe`
+- Windows standalone (single EXE) — `releases/latest/download/Bokheim-Windows-x86_64-Standalone.exe`
 - Android — `releases/latest/download/Bokheim-Android-arm64.apk`
 - macOS (Apple Silicon and Intel, macOS 13+) — `releases/latest/download/Bokheim-macOS-universal.dmg`
 
