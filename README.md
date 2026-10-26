@@ -74,7 +74,8 @@ The site does not host any binaries. Bokheim download links point at the latest
 release in [`bokheim-release`](https://github.com/JohanAnderssonOstling/bokheim-release):
 
 - Linux — `releases/latest/download/Bokheim-x86_64.AppImage`
-- Windows — `releases/latest/download/Bokheim-Windows-x86_64-Setup.exe`
+- Windows installer — `releases/latest/download/Bokheim-Windows-x86_64-Setup.exe`
+- Windows standalone (single EXE, no installer) — `releases/latest/download/Bokheim-Windows-x86_64-Standalone.exe`
 - Android — `releases/latest/download/Bokheim-Android-arm64.apk`
 - macOS (Apple Silicon and Intel, macOS 13+) — `releases/latest/download/Bokheim-macOS-universal.dmg`
 
