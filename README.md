@@ -13,6 +13,7 @@ to preview it; what you see locally is what gets published.
 | `rusttrados/index.html` | RustTrados Windows download page at `/rusttrados/` |
 | `delete-account/` | Public account deletion form at `/delete-account/` |
 | `privacy/` | Public privacy policy at `/privacy/` |
+| `terms/` | Public terms of service at `/terms/` |
 | `icon/` | Favicon, Apple touch icon and the SVG mark used in the hero |
 | `CNAME` | Custom domain for GitHub Pages |
 | `robots.txt` | Crawler policy |
@@ -58,6 +59,14 @@ security, and file deletion. The account deletion page uses the same retention
 wording: uploaded files are deleted once no account uses them; device copies
 remain on the user's devices. Deploy the matching sync-server cleanup before
 publishing these deletion statements. Update the policy when practices change.
+
+## Terms of service
+
+The terms are published at `https://bokheim.se/terms/` and linked from the
+homepage, privacy policy and account deletion page. They identify Johan
+Andersson Östling as the operator, state that the hosted service is currently
+free, and apply Swedish law while preserving applicable mandatory consumer
+protections. Update the terms before changing pricing or service practices.
 
 ## Downloads
 
