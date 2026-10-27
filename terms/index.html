@@ -1,8 +1,11 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <script src="/theme.min.js"></script>
+<link rel="stylesheet" href="/theme.css">
   <meta name="description" content="Terms for using Bokheim’s free account, cloud storage and syncing services.">
   <meta name="referrer" content="no-referrer">
   <title>Terms of Service — Bokheim</title>
@@ -10,9 +13,8 @@
   <link rel="icon" href="/icon/bokheim.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/fonts/headings.css">
   <style>
-    :root { color-scheme: light; --ink: #2E3D31; --cream: #F9F5EE; --sage: #BAC1B3; }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--cream); color: #1F2830; font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif; line-height: 1.65; }
+    body { margin: 0; background: var(--cream); color: var(--text); font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif; line-height: 1.65; }
     main { width: min(100% - 2rem, 46rem); min-height: 100vh; margin: auto; padding: 2rem clamp(1rem, 4vw, 3rem) 4rem; border-inline: 1px solid var(--sage); overflow-wrap: anywhere; }
     a { color: var(--ink); text-underline-offset: .15em; }
     a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
@@ -29,7 +31,7 @@
 </head>
 <body>
 <main>
-  <a class="brand" href="/"><img src="/icon/bokheim.svg" width="32" height="32" alt="">Bokheim</a>
+  <a class="brand" href="/"><picture class="theme-image"><img src="/icon/bokheim.svg" width="32" height="32" alt=""></picture>Bokheim</a>
   <p class="details"><strong>Effective date:</strong> <time datetime="2026-10-26">26 October 2026</time></p>
 <h1>Terms of service</h1>
 <h2>Who provides Bokheim</h2>
@@ -53,7 +55,12 @@
 <p>If something goes wrong, contact us so we can try to resolve it. These terms do not restrict your right to use the complaints procedures or courts available to you under applicable law.</p>
 <h2>Changes to these terms</h2>
 <p>We will explain material changes and give reasonable advance notice before they take effect, unless an urgent legal or security requirement makes that impractical. You may stop using the service and delete your account if you do not agree to a change. Any consent or other rights required by law still apply.</p>
-  <footer><a href="/">Back to Bokheim</a><a href="/privacy/">Privacy Policy</a><a href="/delete-account/">Delete your account</a></footer>
+  <footer><a href="/">Back to Bokheim</a><a href="/privacy/">Privacy Policy</a><a href="/delete-account/">Delete your account</a>
+    <nav class="theme-control" aria-label="Color theme">
+      <a href="/light/terms/" aria-current="page">Light</a>
+      <a href="/dark/terms/">Dark</a>
+    </nav>
+  </footer>
 </main>
 </body>
 </html>

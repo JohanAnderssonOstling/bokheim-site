@@ -1,8 +1,12 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<script src="/theme.min.js"></script>
+<script src="/downloads.min.js" defer></script>
+<link rel="stylesheet" href="/theme.css">
 <title>Bokheim — Offline Reader for Books and Audiobooks</title>
 <meta name="description" content="Bokheim is an offline-first library for ebooks, PDFs and audiobooks that keeps your collection and your progress synchronised across desktop and mobile devices.">
 <meta name="robots" content="index, follow">
@@ -37,15 +41,6 @@
 <link rel="apple-touch-icon" href="/icon/bokheim-180.png">
 <link rel="stylesheet" href="/fonts/headings.css">
 <style>
-  :root {
-    color-scheme: light;
-    --ink: #2E3D31;
-    --cream: #F9F5EE;
-    --greige: #EDE6DC;
-    --sage: #BAC1B3;
-    --warm-grey: #E7E5E3;
-    --text: #1F2830;
-  }
 
   * { box-sizing: border-box; }
 
@@ -89,6 +84,7 @@
      shrink below its content on a short window instead of pushing the row past
      the fold. */
   .hero {
+    position: relative;
     display: flex;
     min-height: 0;
     /* Basis 0, not auto: the hero is whatever height the feature row leaves,
@@ -98,6 +94,13 @@
     justify-content: center;
     padding: clamp(1.5rem, 5vh, 5rem) 1.5rem;
     text-align: center;
+  }
+
+  .hero > .theme-control {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    margin: 0;
   }
 
   .hero-inner {
@@ -138,19 +141,7 @@
     margin-top: clamp(1rem, 3vh, 2rem);
   }
 
-  .mac-install-note {
-    max-width: 34rem;
-    margin: 0.75rem auto 0;
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-
-  .kobo-install { margin-top: 1rem; }
-
-  .kobo-install p {
-    margin: 0.5rem 0 0;
-    font-size: 0.85rem;
-  }
+  .download-actions [hidden] { display: none; }
 
   /* Split control: the primary download, plus a caret hinged to its right
      edge that reveals the builds for the other platform. */
@@ -193,7 +184,7 @@
 
   .download-menu summary {
     padding-inline: 0.75rem;
-    border-left: 1px solid rgb(249 245 238 / 35%);
+    border-left: 1px solid var(--split-divider);
     border-radius: 0 0.35rem 0.35rem 0;
     background: var(--ink);
     color: var(--cream);
@@ -241,7 +232,7 @@
     border: 1px solid var(--sage);
     border-radius: 0.35rem;
     background: var(--cream);
-    box-shadow: 0 0.4rem 1rem rgb(46 61 49 / 12%);
+    box-shadow: 0 0.4rem 1rem var(--menu-shadow);
     list-style: none;
     text-align: left;
   }
@@ -255,6 +246,17 @@
   }
 
   .download-menu-list a:hover { background: var(--greige); }
+
+  .kobo-menu { position: relative; }
+  .kobo-menu summary {
+    flex: 1;
+    padding-inline: 1rem;
+    border: 1px solid var(--ink);
+    border-radius: 0.35rem;
+    background: var(--cream);
+    color: var(--ink);
+  }
+  .kobo-menu summary:hover { background: var(--greige); }
 
   /* Sized by its own content, with the hero absorbing the rest. The cap is a
      backstop: if the copy ever needs more than half the screen (small window,
@@ -286,6 +288,8 @@
     margin: 0.55rem 0 0;
     font-size: 0.95rem;
   }
+
+  .file-format { font-variant-caps: all-small-caps; }
 
   /* Abstract device frames. They are drawn entirely in CSS so the same
      screenshot can be shown as a laptop, a phone and an e-reader without
@@ -327,7 +331,7 @@
     overflow: hidden;
     border: 1px solid var(--sage);
     background: var(--greige);
-    box-shadow: 0 0.5rem 1.4rem rgb(46 61 49 / 10%);
+    box-shadow: 0 0.5rem 1.4rem var(--device-shadow);
   }
 
   /* Height comes from the row; width follows from the aspect ratio. */
@@ -345,7 +349,7 @@
   .laptop .device-screen {
     padding: 0.55rem 0.55rem 0.85rem;
     border-radius: 0.55rem 0.55rem 0.2rem 0.2rem;
-    background: var(--ink);
+    background: var(--device-case);
   }
 
   /* Include both borders, the lid padding and the base in the shared height. */
@@ -414,7 +418,7 @@
   .phone .device-screen {
     padding: 0.4rem;
     border-radius: 1.1rem;
-    background: var(--ink);
+    background: var(--device-case);
   }
 
   .phone .device-screen img {
@@ -430,7 +434,7 @@
   .ereader .device-screen {
     padding: 0.5rem 0.5rem 1.6rem;
     border-radius: 0.5rem;
-    background: var(--ink);
+    background: var(--device-case);
   }
 
   /* Matches the capture exactly, so the portrait shot fills the frame instead
@@ -460,6 +464,24 @@
 
   .sync-row .phone .device-screen img { aspect-ratio: 831 / 1516; }
 
+  .audiobook-stage { margin-top: 3rem; }
+
+  .audiobook-sync-row { --frame-height: calc((100cqw - 0.16rem) / 2.54551); }
+
+  .audiobook-sync-row picture { display: block; }
+
+  .audiobook-sync-row .laptop .device-screen img {
+    aspect-ratio: 832 / 436;
+    max-width: 832px;
+    max-height: 436px;
+  }
+
+  .audiobook-sync-row .phone .device-screen img {
+    aspect-ratio: 520 / 816;
+    max-width: 520px;
+    max-height: 816px;
+  }
+
   .page-stack { position: relative; }
 
   .page-stack .page-b {
@@ -478,15 +500,6 @@
     0%, 22% { opacity: 0; }
     28%, 72% { opacity: 1; }
     78%, 100% { opacity: 0; }
-  }
-
-  /* Motion is the whole illustration, so without it just show the later page
-     on both devices — the end state the animation was demonstrating. */
-  @media (prefers-reduced-motion: reduce) {
-    .page-stack .page-b {
-      animation: none;
-      opacity: 1;
-    }
   }
 
   .shots {
@@ -536,7 +549,8 @@
     transform: translateX(-50%);
   }
 
-  .shot img {
+  .shot img,
+  .shot video {
     display: block;
     width: 100%;
     height: auto;
@@ -547,6 +561,68 @@
   .shot figcaption {
     margin-top: 0.85rem;
     font-size: 0.9rem;
+  }
+
+  .narration-sample figcaption { margin: 0 0 0.65rem; }
+
+  .narration-sample { scroll-margin-top: 5rem; }
+
+  .narration-voices {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .narration-voices a {
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--ink);
+    border-radius: 2rem;
+    text-decoration: none;
+  }
+
+  .narration-voices a[aria-current="page"] {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  /* The final reader image stays underneath the other three scenes. Each new
+     scene fades over its predecessor; the reader is revealed as scene 3 fades
+     out, then the catalog fades back in to complete the loop. */
+  .catalog-sequence {
+    display: grid;
+    isolation: isolate;
+  }
+
+  .catalog-sequence img {
+    grid-area: 1 / 1;
+    animation-duration: 9.96s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .catalog-sequence img:nth-child(1) { z-index: 1; animation-name: catalog-overview; }
+  .catalog-sequence img:nth-child(2) { z-index: 2; animation-name: catalog-add; }
+  .catalog-sequence img:nth-child(3) { z-index: 3; animation-name: catalog-read; }
+
+  /* Retain the GIF's holds and 240 ms fades without storing transition frames.
+     A covered scene disappears only after its successor becomes opaque. */
+  @keyframes catalog-overview {
+    0%, 22.49% { opacity: 1; }
+    22.4901%, 97.5904% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes catalog-add {
+    0%, 20.0803% { opacity: 0; }
+    22.49%, 34.9398% { opacity: 1; }
+    34.9399%, 100% { opacity: 0; }
+  }
+
+  @keyframes catalog-read {
+    0%, 32.5301% { opacity: 0; }
+    34.9398%, 55.0201% { opacity: 1; }
+    57.4297%, 100% { opacity: 0; }
   }
 
   :focus-visible {
@@ -600,6 +676,10 @@
     .sync-row {
       --frame-height: calc((100cqw - 1.1rem - 2px) / 1.69155 + 2.1rem + 2px);
     }
+
+    .audiobook-sync-row {
+      --frame-height: calc((100cqw - 1.1rem - 2px) / 1.90826 + 2.1rem + 2px);
+    }
   }
 </style>
 </head>
@@ -607,8 +687,12 @@
 <main class="page">
   <div class="viewport">
   <header class="hero">
+    <nav class="theme-control" aria-label="Color theme">
+      <a href="/light/" aria-current="page">Light</a>
+      <a href="/dark/">Dark</a>
+    </nav>
     <div class="hero-inner">
-      <img class="mark" src="/icon/bokheim.svg" width="512" height="512" alt="">
+      <picture class="theme-image"><img class="mark" src="/icon/bokheim.svg" width="512" height="512" alt=""></picture>
       <h1>Bokheim</h1>
       <p class="summary">One library for all your books on all your devices.</p>
 
@@ -624,26 +708,25 @@
           <details class="download-menu">
             <summary aria-label="All download options"></summary>
             <ul class="download-menu-list">
-              <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-x86_64.AppImage">Linux</a></li>
-              <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-Windows-x86_64-Setup.exe">Windows installer</a></li>
+              <li><a data-os="linux" href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-x86_64.AppImage">Linux</a></li>
+              <li><a data-os="windows" href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-Windows-x86_64-Setup.exe">Windows installer</a></li>
               <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-Windows-x86_64-Standalone.exe">Windows standalone</a></li>
-              <li><a href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-Android-arm64.apk">Android</a></li>
-              <li><a id="macos-download" href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-macOS-universal.dmg" aria-describedby="mac-install-note">macOS</a></li>
+              <li><a data-os="android" href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-Android-arm64.apk">Android</a></li>
+              <li><a id="macos-download" data-os="macos" href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-macOS-universal.dmg">macOS</a></li>
             </ul>
           </details>
         </div>
 
+        <a id="kobo-download" class="webapp-link" hidden>Kobo installer</a>
+        <details id="kobo-install" class="download-menu kobo-menu">
+          <summary>Kobo installer</summary>
+          <ul class="download-menu-list">
+            <li><a data-os="linux" href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-Kobo-Installer-Linux-x86_64.AppImage">Linux</a></li>
+            <li><a data-os="windows" href="https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest/download/Bokheim-Kobo-Installer-Windows-x86_64.exe">Windows</a></li>
+          </ul>
+        </details>
+
         <a class="webapp-link" href="https://app.bokheim.se">Open in browser</a>
-      </div>
-      <p id="mac-install-note" class="mac-install-note" hidden>
-        On macOS 13 or later, open the disk image and drag Bokheim to Applications.
-        If macOS blocks it, try opening Bokheim, then choose
-        <strong>System Settings → Privacy &amp; Security → Open Anyway</strong> and confirm Open.
-        This download is not notarised by Apple.
-      </p>
-      <div id="kobo-install" class="kobo-install" hidden>
-        <a id="kobo-download" class="webapp-link" aria-describedby="kobo-install-note">Install on Kobo</a>
-        <p id="kobo-install-note">Connect your Kobo by USB, then run the installer on your computer.</p>
       </div>
     </div>
   </header>
@@ -659,7 +742,7 @@
     </article>
     <article class="feature">
       <h2>All your books</h2>
-      <p>EPUB, PDF, MOBI, AZW and AZW3.<br>M4B and MP3.</p>
+      <p><span class="file-format">EPUB</span>, <span class="file-format">PDF</span>, <span class="file-format">MOBI</span>, <span class="file-format">AZW</span>, <span class="file-format">AZW3</span>, <span class="file-format">FB2</span> and <span class="file-format">CBZ</span>.<br><span class="file-format">M4B</span> and <span class="file-format">MP3</span>.</p>
     </article>
   </section>
   </div>
@@ -667,16 +750,16 @@
   <section class="sync" aria-labelledby="sync-heading">
     <div class="shots-inner">
       <h2 id="sync-heading">Pick up where you left off</h2>
-      <p class="shots-copy">With a free account your books, bookmarks and reading position are synced automatically.</p>
+      <p class="shots-copy">With a free account your books, annotations and reading positions are synced automatically.</p>
     </div>
 
-    <div class="device-stage">
+    <div id="reading-sync" class="device-stage">
       <div class="device-row sync-row">
         <figure class="device laptop">
           <div class="device-screen">
             <div class="page-stack">
-              <img class="page-a" src="/screenshots/sync-computer-a.webp" width="1536" height="908" loading="lazy" decoding="async" alt="A book open on a computer.">
-              <img class="page-b" src="/screenshots/sync-computer-b.webp" width="1536" height="908" loading="lazy" decoding="async" alt="The same book on the computer, a page later.">
+              <picture class="theme-image"><img class="page-a" src="/screenshots/sync-computer-a.webp" width="1536" height="908" loading="lazy" decoding="async" alt="A book open on a computer."></picture>
+              <picture class="theme-image"><img class="page-b" src="/screenshots/sync-computer-b.webp" width="1536" height="908" loading="lazy" decoding="async" alt="The same book on the computer, a page later."></picture>
             </div>
           </div>
           <div class="device-base"></div>
@@ -685,9 +768,29 @@
         <figure class="device phone">
           <div class="device-screen">
             <div class="page-stack">
-              <img class="page-a" src="/screenshots/sync-phone-a.webp" width="520" height="949" loading="lazy" decoding="async" alt="The same book open on a phone.">
-              <img class="page-b" src="/screenshots/sync-phone-b.webp" width="520" height="949" loading="lazy" decoding="async" alt="The same book on the phone, following the computer to the next page.">
+              <picture class="theme-image"><img class="page-a" src="/screenshots/sync-phone-a.webp" width="520" height="949" loading="lazy" decoding="async" alt="The same book open on a phone."></picture>
+              <picture class="theme-image"><img class="page-b" src="/screenshots/sync-phone-b.webp" width="520" height="949" loading="lazy" decoding="async" alt="The same book on the phone, following the computer to the next page."></picture>
             </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+    <div id="audiobook-sync" class="device-stage audiobook-stage">
+      <div class="device-row sync-row audiobook-sync-row">
+        <figure class="device laptop">
+          <div class="device-screen">
+
+              <picture class="theme-image"><img src="/screenshots/sync-audiobook-computer.gif" width="832" height="436" loading="lazy" decoding="async" alt="History of Julius Caesar on a computer, seeking from five to twenty-one minutes into the chapter."></picture>
+
+          </div>
+          <div class="device-base"></div>
+        </figure>
+
+        <figure class="device phone">
+          <div class="device-screen">
+
+              <picture class="theme-image"><img src="/screenshots/sync-audiobook-phone.gif" width="520" height="816" loading="lazy" decoding="async" alt="The same audiobook on a phone, following the computer's seek from five to twenty-one minutes a moment later."></picture>
+
           </div>
         </figure>
       </div>
@@ -697,27 +800,26 @@
   <section class="devices" aria-labelledby="devices-heading">
     <div class="shots-inner">
       <h2 id="devices-heading">One app on every screen</h2>
-      <p class="shots-copy">Computer, e-reader and phone, each running the same library.</p>
     </div>
 
     <div class="device-stage">
       <div class="device-row">
         <figure class="device laptop">
           <div class="device-screen">
-            <img src="/screenshots/books-desktop.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="The Classics library's Books view on desktop, with book covers and the full navigation sidebar visible.">
+            <picture class="theme-image"><img src="/screenshots/books-desktop.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="The Classics library's Books view on desktop, with book covers and the full navigation sidebar visible."></picture>
           </div>
           <div class="device-base"></div>
         </figure>
 
         <figure class="device ereader">
           <div class="device-screen">
-            <img src="/screenshots/books-ereader.webp" width="1160" height="1368" loading="lazy" decoding="async" alt="The Classics library's Books view in an e-reader frame, with the current navigation sidebar and book cover grid.">
+            <picture class="theme-image"><img src="/screenshots/books-ereader.webp" width="1160" height="1368" loading="lazy" decoding="async" alt="The Classics library's Books view in an e-reader frame, with the current navigation sidebar and book cover grid."></picture>
           </div>
         </figure>
 
         <figure class="device phone">
           <div class="device-screen">
-            <img src="/screenshots/phone.webp" width="1080" height="1920" loading="lazy" decoding="async" alt="The Classics library on an Android phone, showing its books as a grid of covers.">
+            <picture class="theme-image"><img src="/screenshots/phone.webp" width="1080" height="1920" loading="lazy" decoding="async" alt="The Classics library on an Android phone, showing its books as a grid of covers."></picture>
           </div>
         </figure>
       </div>
@@ -726,19 +828,56 @@
 
   <section class="shots" aria-label="Screenshots">
     <div class="shots-inner">
-      <h2>Library-grade categorisation</h2>
-      <p class="shots-copy">Books are automatically catalogued using a combination of commercial, Library of Congress and Dewey Decimal systems.</p>
+      <h2 id="folders-heading">Keep your folder structure</h2>
+      <p class="shots-copy">Existing folder structures are preserved and kept up to date.</p>
+
+      <figure id="folders" class="shot">
+        <picture class="theme-image"><img src="/screenshots/folders-overview-20261027.webp" width="1652" height="722" loading="lazy" decoding="async" alt="Bokheim showing eight personal folders, including Book Club Picks, Dad’s recommendations and To Read Next, with books inside each."></picture>
+      </figure>
+
+      <h2>Automatic categorization</h2>
+      <p class="shots-copy">Your books are automatically categorized into a subject hierarchy using data embedded in your files and publicly available data.</p>
 
       <figure class="shot">
-        <img src="/screenshots/subjects-graph-9d002589.webp" width="1920" height="978" loading="lazy" decoding="async" alt="The Böcker library's subjects in graph view, with all category branches and the full navigation sidebar visible.">
+        <picture class="theme-image"><img src="/screenshots/subjects-graph-9d002589.webp" width="1920" height="840" loading="lazy" decoding="async" alt="The Böcker library's subjects in graph view, with all category branches visible."></picture>
       </figure>
 
       <h2>Find your next read</h2>
-      <p class="shots-copy">Search and browse classics from the public domain.</p>
+      <p class="shots-copy">Add high quality public domain books from the 5000+ book curated catalog. Explore OPDS catalogs and download from the web with the embedded browser.</p>
 
-      <figure class="shot">
-        <img src="/screenshots/catalog-6a9ccc8d.webp" width="1920" height="1428" loading="lazy" decoding="async" alt="Bokheim's catalog root with subject navigation, showing five complete rows of category cards and the full navigation sidebar.">
+      <figure id="catalog-library" class="shot">
+        <div class="catalog-sequence" role="img" aria-label="Browsing the catalog, pressing Add to library for Pride and Prejudice, pressing Read on the downloaded book, and reading with the sidebar hidden, with brief crossfades between scenes.">
+          <img src="/screenshots/catalog-overview.webp" width="1632" height="820" loading="lazy" decoding="async" alt="">
+          <img src="/screenshots/catalog-add.webp" width="1632" height="820" loading="lazy" decoding="async" alt="">
+          <img src="/screenshots/catalog-read.webp" width="1632" height="820" loading="lazy" decoding="async" alt="">
+          <img src="/screenshots/catalog-reader.webp" width="1632" height="820" loading="lazy" decoding="async" alt="">
+        </div>
       </figure>
+
+      <h2 id="listen-heading">Listen to your books</h2>
+
+      <nav class="narration-voices" aria-label="Reading voice">
+        <a href="/light/#listen" aria-current="page">George</a>
+        <a href="/light/alba/#listen">Alba</a>
+      </nav>
+
+      <figure id="listen" class="shot narration-sample">
+        <figcaption>George</figcaption>
+        <video id="tts-george" src="/screenshots/tts-george-46436558.mp4" controls playsinline preload="none" width="1632" height="944" poster="/screenshots/tts-george-4e5bfc66.webp" aria-label="Pride and Prejudice read aloud by George, with synchronized passage highlighting">
+          <track kind="captions" src="/screenshots/tts-george-9a9e7fa4.vtt" srclang="en" label="English">
+          <p>Your browser does not support video. <a href="/screenshots/tts-george-46436558.mp4">Watch the George reading sample.</a></p>
+        </video>
+      </figure>
+
+      <template id="tts-alba-template">
+      <figure id="listen" class="shot narration-sample">
+        <figcaption>Alba</figcaption>
+        <video id="tts-alba" src="/screenshots/tts-alba-30cda57c.mp4" controls playsinline preload="none" width="1632" height="944" poster="/screenshots/tts-alba-ebf2e0f7.webp" aria-label="Pride and Prejudice read aloud by Alba, with synchronized passage highlighting">
+          <track kind="captions" src="/screenshots/tts-alba-72311015.vtt" srclang="en" label="English">
+          <p>Your browser does not support video. <a href="/screenshots/tts-alba-30cda57c.mp4">Watch the Alba reading sample.</a></p>
+        </video>
+      </figure>
+      </template>
 
     </div>
   </section>
@@ -749,68 +888,9 @@
     <a href="/terms/">Terms of Service</a>
     <span aria-hidden="true"> · </span>
     <a href="/delete-account/">Delete your account</a>
+
   </footer>
 </main>
 
-<script>
-  const releases = "https://github.com/JohanAnderssonOstling/bokheim-release/releases/latest";
-
-  const downloads = {
-    linux: ["Download for Linux", `${releases}/download/Bokheim-x86_64.AppImage`],
-    windows: ["Download for Windows", `${releases}/download/Bokheim-Windows-x86_64-Setup.exe`],
-    android: ["Download for Android", `${releases}/download/Bokheim-Android-arm64.apk`],
-    macos: ["Download for macOS", `${releases}/download/Bokheim-macOS-universal.dmg`],
-  };
-
-  const koboDownloads = {
-    linux: ["Kobo installer for Linux", `${releases}/download/Bokheim-Kobo-Installer-Linux-x86_64.AppImage`],
-    windows: ["Kobo installer for Windows", `${releases}/download/Bokheim-Kobo-Installer-Windows-x86_64.exe`],
-  };
-
-  // Unsupported platforms keep the generic label and releases-page link.
-  function detectOS() {
-    const platform = navigator.userAgentData?.platform || navigator.platform || "";
-    const userAgent = navigator.userAgent || "";
-
-    // iPadOS can report MacIntel; it needs the browser app, not a Mac disk image.
-    if (/iPad|iPhone|iPod/i.test(userAgent) || (/Mac/i.test(platform) && navigator.maxTouchPoints > 1)) return null;
-
-    if (/Windows Phone|IEMobile/i.test(userAgent)) return null;
-
-    // Android reports "Linux" as its platform, so it has to be checked first.
-    if (/Android/i.test(userAgent) || /Android/i.test(platform)) return "android";
-    if (navigator.userAgentData?.mobile || /Mobi|Tablet|Kindle|Silk|Kobo|CrOS/i.test(userAgent)) return null;
-    if (/Linux/i.test(platform)) return "linux";
-    if (/Win/i.test(platform)) return "windows";
-    if (/Mac/i.test(platform)) return "macos";
-    return null;
-  }
-
-  const primaryDownload = document.querySelector("#primary-download");
-  const downloadLabel = document.querySelector("#download-label");
-  const os = detectOS();
-  const download = downloads[os];
-
-  if (download) {
-    downloadLabel.textContent = download[0];
-    primaryDownload.href = download[1];
-  }
-
-  const koboDownload = koboDownloads[os];
-  // The Linux installer is x86_64-only; ARM Linux computers cannot run it.
-  const armLinux = os === "linux" && /arm|aarch/i.test(`${navigator.platform} ${navigator.userAgent}`);
-  if (koboDownload && !armLinux) {
-    const koboLink = document.querySelector("#kobo-download");
-    koboLink.textContent = koboDownload[0];
-    koboLink.href = koboDownload[1];
-    document.querySelector("#kobo-install").hidden = false;
-  }
-
-  const macInstallNote = document.querySelector("#mac-install-note");
-  macInstallNote.hidden = os !== "macos";
-  document.querySelector("#macos-download").addEventListener("click", () => {
-    macInstallNote.hidden = false;
-  });
-</script>
 </body>
 </html>
