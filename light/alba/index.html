@@ -5,8 +5,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
+<script src="/theme.min.js?v=2" defer></script>
 <script src="/downloads.min.js" defer></script>
-<link rel="stylesheet" href="/theme.css">
+<link rel="stylesheet" href="/theme.css?v=2">
 <title>Bokheim: Offline Reader for Books and Audiobooks</title>
 <meta name="description" content="Bokheim is an offline-first library for ebooks, PDFs and audiobooks that keeps your collection and your progress synchronised across desktop and mobile devices.">
 <meta name="robots" content="index, follow">
@@ -623,16 +624,16 @@
     isolation: isolate;
   }
 
-  .catalog-sequence img {
+  .catalog-sequence picture {
     grid-area: 1 / 1;
     animation-duration: 9.96s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
   }
 
-  .catalog-sequence img:nth-child(1) { z-index: 1; animation-name: catalog-overview; }
-  .catalog-sequence img:nth-child(2) { z-index: 2; animation-name: catalog-add; }
-  .catalog-sequence img:nth-child(3) { z-index: 3; animation-name: catalog-read; }
+  .catalog-sequence picture:nth-child(1) { z-index: 1; animation-name: catalog-overview; }
+  .catalog-sequence picture:nth-child(2) { z-index: 2; animation-name: catalog-add; }
+  .catalog-sequence picture:nth-child(3) { z-index: 3; animation-name: catalog-read; }
 
   /* Retain the GIF's holds and 240 ms fades without storing transition frames.
      A covered scene disappears only after its successor becomes opaque. */
@@ -787,8 +788,8 @@
         <figure class="device laptop">
           <div class="device-screen">
             <div class="page-stack">
-              <picture class="theme-image"><img class="page-a" src="/screenshots/sync-computer-a.webp" width="1536" height="908" loading="lazy" decoding="async" alt="A book open on a computer."></picture>
-              <picture class="theme-image"><img class="page-b" src="/screenshots/sync-computer-b.webp" width="1536" height="908" loading="lazy" decoding="async" alt="The same book on the computer, a page later."></picture>
+              <picture class="theme-image"><img class="page-a" src="/screenshots/sync-computer-a.webp" width="1536" height="908" loading="lazy" decoding="async" alt="A book open on a computer." srcset="/screenshots/responsive/sync-computer-a-ebc9c5e6-240.webp 240w, /screenshots/responsive/sync-computer-a-ebc9c5e6-480.webp 480w, /screenshots/responsive/sync-computer-a-ebc9c5e6-640.webp 640w, /screenshots/responsive/sync-computer-a-ebc9c5e6-960.webp 960w, /screenshots/responsive/sync-computer-a-ebc9c5e6-1280.webp 1280w, /screenshots/sync-computer-a.webp 1536w" sizes="(max-width: 672px) calc(100vw - 100px), (max-width: 1168px) calc(75.5vw - 123px), 760px"></picture>
+              <picture class="theme-image"><img class="page-b" src="/screenshots/sync-computer-b.webp" width="1536" height="908" loading="lazy" decoding="async" alt="The same book on the computer, a page later." srcset="/screenshots/responsive/sync-computer-b-86dc1dd5-240.webp 240w, /screenshots/responsive/sync-computer-b-86dc1dd5-480.webp 480w, /screenshots/responsive/sync-computer-b-86dc1dd5-640.webp 640w, /screenshots/responsive/sync-computer-b-86dc1dd5-960.webp 960w, /screenshots/responsive/sync-computer-b-86dc1dd5-1280.webp 1280w, /screenshots/sync-computer-b.webp 1536w" sizes="(max-width: 672px) calc(100vw - 100px), (max-width: 1168px) calc(75.5vw - 123px), 760px"></picture>
             </div>
           </div>
           <div class="device-base"></div>
@@ -797,8 +798,8 @@
         <figure class="device phone">
           <div class="device-screen">
             <div class="page-stack">
-              <picture class="theme-image"><img class="page-a" src="/screenshots/sync-phone-a.webp" width="520" height="949" loading="lazy" decoding="async" alt="The same book open on a phone."></picture>
-              <picture class="theme-image"><img class="page-b" src="/screenshots/sync-phone-b.webp" width="520" height="949" loading="lazy" decoding="async" alt="The same book on the phone, following the computer to the next page."></picture>
+              <picture class="theme-image"><img class="page-a" src="/screenshots/sync-phone-a.webp" width="520" height="949" loading="lazy" decoding="async" alt="The same book open on a phone." srcset="/screenshots/responsive/sync-phone-a-d964fb1b-240.webp 240w, /screenshots/responsive/sync-phone-a-d964fb1b-480.webp 480w, /screenshots/sync-phone-a.webp 520w" sizes="(max-width: 672px) calc(32.4vw - 21px), (max-width: 1168px) calc(24.5vw - 29px), 260px"></picture>
+              <picture class="theme-image"><img class="page-b" src="/screenshots/sync-phone-b.webp" width="520" height="949" loading="lazy" decoding="async" alt="The same book on the phone, following the computer to the next page." srcset="/screenshots/responsive/sync-phone-b-f7b01f7d-240.webp 240w, /screenshots/responsive/sync-phone-b-f7b01f7d-480.webp 480w, /screenshots/sync-phone-b.webp 520w" sizes="(max-width: 672px) calc(32.4vw - 21px), (max-width: 1168px) calc(24.5vw - 29px), 260px"></picture>
             </div>
           </div>
         </figure>
@@ -835,20 +836,20 @@
       <div class="device-row">
         <figure class="device laptop">
           <div class="device-screen">
-            <picture class="theme-image"><img src="/screenshots/books-desktop.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="The Classics library's Books view on desktop, with book covers and the full navigation sidebar visible."></picture>
+            <picture class="theme-image"><img src="/screenshots/books-desktop.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="The Classics library's Books view on desktop, with book covers and the full navigation sidebar visible." srcset="/screenshots/responsive/books-desktop-3d43b113-240.webp 240w, /screenshots/responsive/books-desktop-3d43b113-480.webp 480w, /screenshots/responsive/books-desktop-3d43b113-640.webp 640w, /screenshots/responsive/books-desktop-3d43b113-960.webp 960w, /screenshots/responsive/books-desktop-3d43b113-1280.webp 1280w, /screenshots/books-desktop.webp 1920w" sizes="(max-width: 672px) calc(100vw - 100px), (max-width: 1168px) calc(53.2vw - 111px), 511px"></picture>
           </div>
           <div class="device-base"></div>
         </figure>
 
         <figure class="device ereader">
           <div class="device-screen">
-            <picture class="theme-image"><img src="/screenshots/books-ereader.webp" width="1160" height="1368" loading="lazy" decoding="async" alt="The Classics library's Books view in an e-reader frame, with the current navigation sidebar and book cover grid."></picture>
+            <picture class="theme-image"><img src="/screenshots/books-ereader.webp" width="1160" height="1368" loading="lazy" decoding="async" alt="The Classics library's Books view in an e-reader frame, with the current navigation sidebar and book cover grid." srcset="/screenshots/responsive/books-ereader-73bac296-240.webp 240w, /screenshots/responsive/books-ereader-73bac296-480.webp 480w, /screenshots/responsive/books-ereader-73bac296-640.webp 640w, /screenshots/responsive/books-ereader-73bac296-960.webp 960w, /screenshots/books-ereader.webp 1160w" sizes="(max-width: 672px) calc(53vw - 53px), (max-width: 1168px) calc(28.2vw - 58px), 271px"></picture>
           </div>
         </figure>
 
         <figure class="device phone">
           <div class="device-screen">
-            <picture class="theme-image"><img src="/screenshots/phone.webp" width="1080" height="1920" loading="lazy" decoding="async" alt="The Classics library on an Android phone, showing its books as a grid of covers."></picture>
+            <picture class="theme-image"><img src="/screenshots/phone.webp" width="1080" height="1920" loading="lazy" decoding="async" alt="The Classics library on an Android phone, showing its books as a grid of covers." srcset="/screenshots/responsive/phone-81d67533-240.webp 240w, /screenshots/responsive/phone-81d67533-480.webp 480w, /screenshots/responsive/phone-81d67533-640.webp 640w, /screenshots/responsive/phone-81d67533-960.webp 960w, /screenshots/phone.webp 1080w" sizes="(max-width: 672px) calc(35.2vw - 23px), (max-width: 1168px) calc(18.7vw - 28px), 192px"></picture>
           </div>
         </figure>
       </div>
@@ -861,7 +862,7 @@
       <p class="shots-copy">Existing folder structures are preserved and kept up to date.</p>
 
       <figure id="folders" class="shot">
-        <picture class="theme-image"><img src="/screenshots/folders-overview-20261027.webp" width="1652" height="722" loading="lazy" decoding="async" alt="Bokheim showing eight personal folders, including Book Club Picks, Dad’s recommendations and To Read Next, with books inside each."></picture>
+        <picture class="theme-image"><img src="/screenshots/folders-overview-20261027.webp" width="1652" height="722" loading="lazy" decoding="async" alt="Bokheim showing eight personal folders, including Book Club Picks, Dad’s recommendations and To Read Next, with books inside each." srcset="/screenshots/responsive/folders-overview-20261027-84deeba0-240.webp 240w, /screenshots/responsive/folders-overview-20261027-84deeba0-480.webp 480w, /screenshots/responsive/folders-overview-20261027-84deeba0-640.webp 640w, /screenshots/responsive/folders-overview-20261027-84deeba0-960.webp 960w, /screenshots/responsive/folders-overview-20261027-84deeba0-1280.webp 1280w, /screenshots/folders-overview-20261027.webp 1652w" sizes="(max-width: 1168px) calc(100vw - 80px), 1088px"></picture>
       </figure>
 
       <section id="annotations" class="annotation-section" aria-labelledby="annotations-heading">
@@ -879,7 +880,7 @@
             </li>
           </ul>
           <figure class="annotation-image">
-            <picture class="theme-image"><img src="/screenshots/annotations-prince-c801dbb9.webp" width="1280" height="743" loading="lazy" decoding="async" alt="The Prince open in Bokheim with highlighted text and the annotation editor showing note, style and colour controls."></picture>
+            <picture class="theme-image"><img src="/screenshots/annotations-prince-c801dbb9.webp" width="1280" height="743" loading="lazy" decoding="async" alt="The Prince open in Bokheim with highlighted text and the annotation editor showing note, style and colour controls." srcset="/screenshots/responsive/annotations-prince-c801dbb9-c801dbb9-240.webp 240w, /screenshots/responsive/annotations-prince-c801dbb9-c801dbb9-480.webp 480w, /screenshots/responsive/annotations-prince-c801dbb9-c801dbb9-640.webp 640w, /screenshots/responsive/annotations-prince-c801dbb9-c801dbb9-960.webp 960w, /screenshots/annotations-prince-c801dbb9.webp 1280w" sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1168px) calc(48.5vw - 40px), 523px"></picture>
           </figure>
         </div>
       </section>
@@ -888,7 +889,7 @@
       <p class="shots-copy">Your books are automatically categorized into a subject hierarchy using data embedded in your files and publicly available data.</p>
 
       <figure class="shot">
-        <picture class="theme-image"><img src="/screenshots/subjects-graph-9d002589.webp" width="1920" height="840" loading="lazy" decoding="async" alt="The Böcker library's subjects in graph view, with all category branches visible."></picture>
+        <picture class="theme-image"><img src="/screenshots/subjects-graph-9d002589.webp" width="1920" height="840" loading="lazy" decoding="async" alt="The Böcker library's subjects in graph view, with all category branches visible." srcset="/screenshots/responsive/subjects-graph-9d002589-8de13b4d-240.webp 240w, /screenshots/responsive/subjects-graph-9d002589-8de13b4d-480.webp 480w, /screenshots/responsive/subjects-graph-9d002589-8de13b4d-640.webp 640w, /screenshots/responsive/subjects-graph-9d002589-8de13b4d-960.webp 960w, /screenshots/responsive/subjects-graph-9d002589-8de13b4d-1280.webp 1280w, /screenshots/subjects-graph-9d002589.webp 1920w" sizes="(max-width: 1168px) calc(100vw - 80px), 1088px"></picture>
       </figure>
 
       <h2>Find your next read</h2>
@@ -896,10 +897,10 @@
 
       <figure id="catalog-library" class="shot">
         <div class="catalog-sequence" role="img" aria-label="Browsing the catalog, pressing Add to library for Pride and Prejudice, pressing Read on the downloaded book, and reading with the sidebar hidden, with brief crossfades between scenes.">
-          <img src="/screenshots/catalog-overview.webp" width="1632" height="820" loading="lazy" decoding="async" alt="">
-          <img src="/screenshots/catalog-add.webp" width="1632" height="820" loading="lazy" decoding="async" alt="">
-          <img src="/screenshots/catalog-read.webp" width="1632" height="820" loading="lazy" decoding="async" alt="">
-          <img src="/screenshots/catalog-reader.webp" width="1632" height="820" loading="lazy" decoding="async" alt="">
+          <picture class="theme-image"><img src="/screenshots/catalog-overview.webp" width="1632" height="820" loading="lazy" decoding="async" alt="" srcset="/screenshots/responsive/catalog-overview-ec274f67-240.webp 240w, /screenshots/responsive/catalog-overview-ec274f67-480.webp 480w, /screenshots/responsive/catalog-overview-ec274f67-640.webp 640w, /screenshots/responsive/catalog-overview-ec274f67-960.webp 960w, /screenshots/responsive/catalog-overview-ec274f67-1280.webp 1280w, /screenshots/catalog-overview.webp 1632w" sizes="(max-width: 1168px) calc(100vw - 80px), 1088px"></picture>
+          <picture class="theme-image"><img src="/screenshots/catalog-add.webp" width="1632" height="820" loading="lazy" decoding="async" alt="" srcset="/screenshots/responsive/catalog-add-0269540a-240.webp 240w, /screenshots/responsive/catalog-add-0269540a-480.webp 480w, /screenshots/responsive/catalog-add-0269540a-640.webp 640w, /screenshots/responsive/catalog-add-0269540a-960.webp 960w, /screenshots/responsive/catalog-add-0269540a-1280.webp 1280w, /screenshots/catalog-add.webp 1632w" sizes="(max-width: 1168px) calc(100vw - 80px), 1088px"></picture>
+          <picture class="theme-image"><img src="/screenshots/catalog-read.webp" width="1632" height="820" loading="lazy" decoding="async" alt="" srcset="/screenshots/responsive/catalog-read-05b839da-240.webp 240w, /screenshots/responsive/catalog-read-05b839da-480.webp 480w, /screenshots/responsive/catalog-read-05b839da-640.webp 640w, /screenshots/responsive/catalog-read-05b839da-960.webp 960w, /screenshots/responsive/catalog-read-05b839da-1280.webp 1280w, /screenshots/catalog-read.webp 1632w" sizes="(max-width: 1168px) calc(100vw - 80px), 1088px"></picture>
+          <picture class="theme-image"><img src="/screenshots/catalog-reader.webp" width="1632" height="820" loading="lazy" decoding="async" alt="" srcset="/screenshots/responsive/catalog-reader-dc6a3d41-240.webp 240w, /screenshots/responsive/catalog-reader-dc6a3d41-480.webp 480w, /screenshots/responsive/catalog-reader-dc6a3d41-640.webp 640w, /screenshots/responsive/catalog-reader-dc6a3d41-960.webp 960w, /screenshots/responsive/catalog-reader-dc6a3d41-1280.webp 1280w, /screenshots/catalog-reader.webp 1632w" sizes="(max-width: 1168px) calc(100vw - 80px), 1088px"></picture>
         </div>
       </figure>
 
@@ -912,7 +913,7 @@
 
       <figure id="listen" class="shot narration-sample">
         <figcaption>Alba</figcaption>
-        <video id="tts-alba" src="/screenshots/tts-alba-30cda57c.mp4" controls playsinline preload="none" width="1632" height="944" poster="/screenshots/tts-alba-ebf2e0f7.webp" aria-label="Pride and Prejudice read aloud by Alba, with synchronized passage highlighting">
+        <video id="tts-alba" src="/screenshots/tts-alba-30cda57c.mp4" controls playsinline preload="none" width="1632" height="944" aria-label="Pride and Prejudice read aloud by Alba, with synchronized passage highlighting" data-poster="/screenshots/tts-alba-ebf2e0f7.webp" data-poster-srcset="/screenshots/responsive/tts-alba-ebf2e0f7-ebf2e0f7-240.webp 240w, /screenshots/responsive/tts-alba-ebf2e0f7-ebf2e0f7-480.webp 480w, /screenshots/responsive/tts-alba-ebf2e0f7-ebf2e0f7-640.webp 640w, /screenshots/responsive/tts-alba-ebf2e0f7-ebf2e0f7-960.webp 960w, /screenshots/responsive/tts-alba-ebf2e0f7-ebf2e0f7-1280.webp 1280w, /screenshots/tts-alba-ebf2e0f7.webp 1632w" data-dark-poster-srcset="/screenshots/dark/responsive/tts-alba-ebf2e0f7-58ad737f-240.webp 240w, /screenshots/dark/responsive/tts-alba-ebf2e0f7-58ad737f-480.webp 480w, /screenshots/dark/responsive/tts-alba-ebf2e0f7-58ad737f-640.webp 640w, /screenshots/dark/responsive/tts-alba-ebf2e0f7-58ad737f-960.webp 960w, /screenshots/dark/responsive/tts-alba-ebf2e0f7-58ad737f-1280.webp 1280w, /screenshots/dark/tts-alba-ebf2e0f7.webp 1632w">
           <track kind="captions" src="/screenshots/tts-alba-72311015.vtt" srclang="en" label="English">
           <p>Your browser does not support video. <a href="/screenshots/tts-alba-30cda57c.mp4">Watch the Alba reading sample.</a></p>
         </video>

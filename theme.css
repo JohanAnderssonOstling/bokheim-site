@@ -32,6 +32,25 @@
   --device-shadow: rgb(0 0 0 / 30%);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    color-scheme: dark;
+    --ink: #d3b271;
+    --cream: #11100d;
+    --greige: #2a2720;
+    --sage: #4e432c;
+    --warm-grey: #2a2720;
+    --text: #efe6d0;
+    --raised: #2a2720;
+    --danger: #df8a83;
+    --button-text: #11100d;
+    --device-case: #2a2720;
+    --split-divider: rgb(17 16 13 / 35%);
+    --menu-shadow: rgb(0 0 0 / 30%);
+    --device-shadow: rgb(0 0 0 / 30%);
+  }
+}
+
 .theme-image { display: block; }
 .brand .theme-image { display: inline-flex; }
 .theme-control {

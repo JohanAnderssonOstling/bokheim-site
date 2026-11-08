@@ -4,6 +4,8 @@
 from pathlib import Path
 import re
 
+from responsive_images import attributes, candidates, responsive_page, set_attributes
+
 
 ROOT = Path(__file__).resolve().parent
 PAGES = (
@@ -17,9 +19,9 @@ PAGE_URLS = {"/" + str(page).removesuffix("index.html") for page in PAGES}
 
 
 def themed_page(source: str, theme: str, voice: str = "george") -> str:
-    page = re.sub(r'\s*<script src="/theme.min.js"></script>', "", source)
-    page = page.replace('data-theme="light"', f'data-theme="{theme}"', 1)
-    page = page.replace('content="light"', f'content="{theme}"', 1)
+    page = re.sub(r'<source data-theme-source="dark"[^>]*>', "", source)
+    page = page.replace('data-theme="auto"', f'data-theme="{theme}"', 1)
+    page = page.replace('content="light dark"', f'content="{theme}"', 1)
 
     # The alternative sample is inert in the source page. Generated homepages
     # contain just the selected video, so navigation stops the previous audio.
@@ -51,11 +53,19 @@ def themed_page(source: str, theme: str, voice: str = "george") -> str:
         page = re.sub(r'(<a href="/dark/[^"]*")>Dark</a>', r'\1 aria-current="page">Dark</a>', page, count=1)
         page = page.replace('src="/icon/bokheim.svg"', 'src="/screenshots/dark/bokheim.svg?v=2"')
         page = page.replace('href="/icon/bokheim.svg"', 'href="/screenshots/dark/bokheim.svg?v=2"')
-        page = re.sub(
-            r'\b(src|poster|href)="/screenshots/([^"/]+\.(?:webp|gif|mp4))"',
-            r'\1="/screenshots/dark/\2"',
-            page,
-        )
+        page = re.sub(r'/screenshots/(?!dark/)', '/screenshots/dark/', page)
+        # Dark captures have their own content hashes and responsive assets.
+        def dark_media(match):
+            tag = match[0]
+            attrs = attributes(tag)
+            url = attrs.get("src", "")
+            if url.startswith("/screenshots/") and url.endswith(".webp"):
+                tag = set_attributes(tag, {"srcset": candidates(url)})
+            if "data-poster" in attrs:
+                tag = set_attributes(tag, {"data-poster-srcset": candidates(attrs["data-poster"])})
+            return tag
+
+        page = re.sub(r'<(?:img|video)\b[^>]*>', dark_media, page)
     if alternative and voice == "alba":
         def theme_links(match: re.Match) -> str:
             return match[0].replace('href="/light/"', 'href="/light/alba/#listen"').replace('href="/dark/"', 'href="/dark/alba/#listen"')
@@ -68,6 +78,8 @@ if __name__ == "__main__":
     count = 0
     for source_path in PAGES:
         source = (ROOT / source_path).read_text()
+        source = responsive_page(source)
+        (ROOT / source_path).write_text(source)
         for theme in ("light", "dark"):
             target = ROOT / theme / source_path
             target.parent.mkdir(parents=True, exist_ok=True)
