@@ -59,7 +59,7 @@ def themed_page(source: str, theme: str, voice: str = "george") -> str:
             tag = match[0]
             attrs = attributes(tag)
             url = attrs.get("src", "")
-            if url.startswith("/screenshots/") and url.endswith(".webp"):
+            if url.startswith("/screenshots/") and url.endswith((".webp", ".gif")):
                 tag = set_attributes(tag, {"srcset": candidates(url)})
             if "data-poster" in attrs:
                 tag = set_attributes(tag, {"data-poster-srcset": candidates(attrs["data-poster"])})
