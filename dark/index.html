@@ -507,10 +507,9 @@
     border-top: 1px solid var(--sage);
   }
 
-  /* The reading measure for the whole column: headings and prose share one left
-     edge, and the screenshots break out past it. */
+  /* Headings, prose and screenshots share the same left edge. */
   .shots-inner {
-    width: min(100%, 52rem);
+    width: min(100vw - 5rem, 68rem);
     margin: 0 auto;
   }
 
@@ -529,24 +528,22 @@
   }
 
   /* Room between one screenshot and the heading of the next. */
-  .shot + h2 { margin-top: 4rem; }
+  .shot + h2,
+  .shot + .annotation-section,
+  .annotation-section + h2 { margin-top: 4rem; }
 
   .shots-copy {
+    max-width: 52rem;
     margin: 1rem 0 0;
     font-size: clamp(1rem, 1.8vw, 1.1rem);
-    /* Justified to match the serif, book-like feel. Hyphenation is what keeps
-       it from opening rivers of white space between words. */
     hyphens: auto;
-    text-align: justify;
+    text-align: left;
   }
 
-  /* Prose keeps a narrow measure; screenshots break out past it, so they are
-     downscaled less and their interface text stays legible. */
+  /* Screenshots fill the shared column while prose keeps its reading measure. */
   .shot {
-    width: min(100vw - 5rem, 68rem);
+    width: 100%;
     margin: 1.5rem 0 0;
-    margin-left: 50%;
-    transform: translateX(-50%);
   }
 
   .shot img,
@@ -560,16 +557,14 @@
 
   .annotation-showcase {
     display: grid;
-    grid-template-columns: minmax(0, 18rem) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: clamp(1.5rem, 3vw, 3rem);
-    justify-content: center;
-    align-items: center;
+    align-items: start;
     aspect-ratio: 1652 / 722;
-    margin-top: 4rem;
   }
 
   .annotation-points {
-    margin: 1.25rem 0 0;
+    margin: 0;
     padding-left: 1.15rem;
     font-size: clamp(1rem, 1.8vw, 1.1rem);
     line-height: 1.7;
@@ -882,18 +877,20 @@
         <picture class="theme-image"><img src="/screenshots/dark/folders-overview-20261027.webp" width="1652" height="722" loading="lazy" decoding="async" alt="Bokheim showing eight personal folders, including Book Club Picks, Dad’s recommendations and To Read Next, with books inside each."></picture>
       </figure>
 
-      <div id="annotations" class="shot annotation-showcase">
-        <div class="annotation-copy">
-          <h2 id="annotations-heading">Annotations</h2>
+      <section id="annotations" class="annotation-section" aria-labelledby="annotations-heading">
+        <h2 id="annotations-heading">Annotations</h2>
+        <div class="shot annotation-showcase">
           <ul class="annotation-points">
             <li>Highlight passages</li>
             <li>Add notes</li>
+            <li>Recurring notes</li>
+            <li>Export annotations</li>
           </ul>
+          <figure class="annotation-image">
+            <picture class="theme-image"><img src="/screenshots/dark/annotations-prince-29dc0fa0.webp" width="1440" height="2478" loading="lazy" decoding="async" alt="The Prince open in Bokheim with highlighted text and the annotation editor showing note, style and colour controls."></picture>
+          </figure>
         </div>
-        <figure class="annotation-image">
-          <picture class="theme-image"><img src="/screenshots/dark/annotations-prince-29dc0fa0.webp" width="1440" height="2478" loading="lazy" decoding="async" alt="The Prince open in Bokheim with highlighted text and the annotation editor showing note, style and colour controls."></picture>
-        </figure>
-      </div>
+      </section>
 
       <h2>Automatic categorization</h2>
       <p class="shots-copy">Your books are automatically categorized into a subject hierarchy using data embedded in your files and publicly available data.</p>
