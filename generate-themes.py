@@ -53,7 +53,13 @@ def themed_page(source: str, theme: str, voice: str = "george") -> str:
         page = re.sub(r'(<a href="/dark/[^"]*")>Dark</a>', r'\1 aria-current="page">Dark</a>', page, count=1)
         page = page.replace('src="/icon/bokheim.svg"', 'src="/screenshots/dark/bokheim.svg?v=2"')
         page = page.replace('href="/icon/bokheim.svg"', 'href="/screenshots/dark/bokheim.svg?v=2"')
-        page = re.sub(r'/screenshots/(?!dark/)', '/screenshots/dark/', page)
+        def dark_url(match):
+            path = match[1]
+            if Path(path.split("?")[0]).suffix in (".webp", ".gif", ".mp4"):
+                return "/screenshots/dark/" + path
+            return match[0]
+
+        page = re.sub(r'/screenshots/(?!dark/)([^"\s,]+)', dark_url, page)
         # Dark captures have their own content hashes and responsive assets.
         def dark_media(match):
             tag = match[0]
