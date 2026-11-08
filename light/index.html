@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="light">
 <script src="/downloads.min.js" defer></script>
 <link rel="stylesheet" href="/theme.css">
-<title>Bokheim — Offline Reader for Books and Audiobooks</title>
+<title>Bokheim: Offline Reader for Books and Audiobooks</title>
 <meta name="description" content="Bokheim is an offline-first library for ebooks, PDFs and audiobooks that keeps your collection and your progress synchronised across desktop and mobile devices.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://bokheim.se/">
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bokheim">
 <meta property="og:url" content="https://bokheim.se/">
-<meta property="og:title" content="Bokheim — Offline Reader for Books and Audiobooks">
+<meta property="og:title" content="Bokheim: Offline Reader for Books and Audiobooks">
 <meta property="og:description" content="One library for your books and audiobooks, kept within reach and in sync on every device.">
 <meta property="og:image" content="https://bokheim.se/icon/bokheim-512.png">
 <meta name="twitter:card" content="summary">
@@ -558,6 +558,50 @@
     border-radius: 0.35rem;
   }
 
+  .annotation-showcase {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+    aspect-ratio: 1652 / 722;
+    margin-top: 4rem;
+  }
+
+  .annotation-points {
+    margin: 1.25rem 0 0;
+    padding-left: 1.15rem;
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
+    line-height: 1.7;
+  }
+
+  .annotation-points li + li { margin-top: 0.5rem; }
+
+  .annotation-image {
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    margin: 0;
+  }
+
+  .annotation-image picture { display: block; height: 100%; }
+
+  .annotation-image img {
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+  }
+
+  @media (max-width: 720px) {
+    .annotation-showcase {
+      grid-template-columns: 1fr;
+      aspect-ratio: auto;
+    }
+
+    .annotation-image,
+    .annotation-image picture,
+    .annotation-image img { height: auto; }
+  }
+
   .shot figcaption {
     margin-top: 0.85rem;
     font-size: 0.9rem;
@@ -834,6 +878,19 @@
       <figure id="folders" class="shot">
         <picture class="theme-image"><img src="/screenshots/folders-overview-20261027.webp" width="1652" height="722" loading="lazy" decoding="async" alt="Bokheim showing eight personal folders, including Book Club Picks, Dad’s recommendations and To Read Next, with books inside each."></picture>
       </figure>
+
+      <div id="annotations" class="shot annotation-showcase">
+        <div class="annotation-copy">
+          <h2 id="annotations-heading">Annotations</h2>
+          <ul class="annotation-points">
+            <li>Highlight passages</li>
+            <li>Add notes</li>
+          </ul>
+        </div>
+        <figure class="annotation-image">
+          <picture class="theme-image"><img src="/screenshots/annotations-20261108.webp" width="2561" height="1529" loading="lazy" decoding="async" alt="The Prince open in Bokheim with highlighted text and the annotation editor showing note, style and colour controls."></picture>
+        </figure>
+      </div>
 
       <h2>Automatic categorization</h2>
       <p class="shots-copy">Your books are automatically categorized into a subject hierarchy using data embedded in your files and publicly available data.</p>
