@@ -557,8 +557,7 @@
 
   .annotation-showcase {
     display: grid;
-    /* Match the portrait image height to the full-width 1652 × 722 screenshots. */
-    grid-template-columns: minmax(0, 1fr) 25.396%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(1.5rem, 3vw, 3rem);
     align-items: start;
   }
@@ -578,6 +577,10 @@
   }
 
   .annotation-image picture { display: block; }
+
+  @media (max-width: 640px) {
+    .annotation-showcase { grid-template-columns: 1fr; }
+  }
 
   .shot figcaption {
     margin-top: 0.85rem;
@@ -864,7 +867,7 @@
             <li><strong>Export annotations:</strong> Export to Markdown, save annotations in PDF files, or transfer EPUB annotations to Foliate and Readest.</li>
           </ul>
           <figure class="annotation-image">
-            <picture class="theme-image"><img src="/screenshots/annotations-prince-29dc0fa0.webp" width="1440" height="2478" loading="lazy" decoding="async" alt="The Prince open in Bokheim with highlighted text and the annotation editor showing note, style and colour controls."></picture>
+            <picture class="theme-image"><img src="/screenshots/annotations-prince-0614fc39.webp" width="2561" height="1529" loading="lazy" decoding="async" alt="The Prince open in Bokheim with highlighted text and the annotation editor showing note, style and colour controls."></picture>
           </figure>
         </div>
       </section>
